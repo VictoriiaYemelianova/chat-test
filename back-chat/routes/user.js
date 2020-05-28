@@ -1,8 +1,10 @@
 const models = require('../models/index');
-// let jwt = require('jsonwebtoken');
+let jwt = require('jsonwebtoken');
+let config = require('../config');
+let middleware = require('../middleware');
 
-module.exports = function(router) {
-  router.post('/api/login', async (req, res, next) => {
+module.exports = function (router) {
+  router.post('/login', async (req, res, next) => {
     try {
       const user = await models.User.findOne({
         where: {
@@ -10,12 +12,20 @@ module.exports = function(router) {
         }
       });
 
-      if(!user) {
+      if (!user) {
         res.message = 'Такого пользователя не существует.';
       } else {
         if (user.password === req.body.password) {
+          let token = jwt.sign({
+            email: user.email
+          },
+            config.secret,
+            { expiresIn: '24h' }
+          );
+
           let currentUser = {
-            user: user
+            user: user,
+            token: token
           }
 
           res.items = currentUser;
@@ -31,7 +41,7 @@ module.exports = function(router) {
     }
   });
 
-  router.post('/api/register', async (req, res, next) => {
+  router.post('/register', async (req, res, next) => {
     try {
       const user = await models.User.findOne({
         where: {
@@ -39,7 +49,7 @@ module.exports = function(router) {
         }
       });
 
-      if(!user) {
+      if (!user) {
         const userModel = {
           email: req.body.email,
           login: req.body.login,
@@ -50,12 +60,20 @@ module.exports = function(router) {
 
         const newUser = await models.User.create(userModel);
 
-        if(newUser) {
+        if (newUser) {
+          let token = jwt.sign({
+            email: newUser.email
+          },
+          config.secret,
+          { expiresIn: '24h' } // expires in 24 hours
+          );
+
           let currentUser = {
-            user: newUser
+            user: newUser,
+            token: token
           }
           res.items = currentUser;
-        } 
+        }
 
         next();
       } else {
@@ -66,5 +84,7 @@ module.exports = function(router) {
       res.message = err.message;
       next();
     }
-  })
+  });
+
+  router.use('/api', middleware);
 }
