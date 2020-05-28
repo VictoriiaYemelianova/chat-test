@@ -10,12 +10,11 @@ import { map } from 'rxjs/operators';
 })
 export class UserService {
   public currentUser: IUser;
-  public message: string;
 
   constructor( private http: HttpClient ) { }
 
   logUser(user: IUser) {
-    this.http.post(`${apiUrl}/login`, user).pipe(
+    return this.http.post(`${apiUrl}/login`, user).pipe(
       map((res: IServerModel) => {
         if (res.success) {
           this.currentUser = res.items[0] as IUser;

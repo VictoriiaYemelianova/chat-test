@@ -35,13 +35,13 @@
 
       <div class="form-group">
         <div class="input-block">
-          <label for="pass">Password</label>
-          <input type="password" id="pass" formControlName="pass">
+          <label for="password">Password:</label>
+          <input type="password" id="password" formControlName="password">
         </div>
 
-        <div *ngIf="createForm.controls['pass'].invalid && 
-          (createForm.controls['pass'].dirty || createForm.controls['pass'].touched)" class="error">
-          <span *ngIf="createForm.controls['pass'].errors.required">Password is required</span>
+        <div *ngIf="createForm.controls['password'].invalid && 
+          (createForm.controls['password'].dirty || createForm.controls['password'].touched)" class="error">
+          <span *ngIf="createForm.controls['password'].errors.required">passwordword is required</span>
         </div>
       </div>
 

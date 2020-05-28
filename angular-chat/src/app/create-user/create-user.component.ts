@@ -20,7 +20,7 @@ export class CreateUserComponent implements OnInit {
     this.createForm = new FormGroup({
       email: new FormControl('', Validators.required),
       login: new FormControl('', Validators.required),
-      pass: new FormControl('', Validators.required)
+      password: new FormControl('', Validators.required)
     });
   }
 
