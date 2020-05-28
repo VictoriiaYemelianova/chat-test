@@ -1,0 +1,54 @@
+<div class="create-page">
+  <div class="create-content">
+    <div class="anon-img">
+      <img src="assets/img/no_avatar.gif" alt="">
+    </div>
+
+    <div class="error-message">
+      <span>{{ errorMessage }}</span>
+    </div>
+
+    <form [formGroup]="createForm" (ngSubmit)="onCreate()" class="form-content">
+      <div class="form-group">
+        <div class="input-block">
+          <label for="email">Email</label>
+          <input type="text" id="email" formControlName="email">
+        </div>
+
+        <div *ngIf="createForm.controls['email'].invalid && 
+          (createForm.controls['email'].dirty || createForm.controls['email'].touched)" class="error">
+          <span *ngIf="createForm.controls['email'].errors.required">Email is required</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="input-block">
+          <label for="login">Login</label>
+          <input type="text" id="login" formControlName="login">
+        </div>
+
+        <div *ngIf="createForm.controls['login'].invalid && 
+          (createForm.controls['login'].dirty || createForm.controls['login'].touched)" class="error">
+          <span *ngIf="createForm.controls['login'].errors.required">Login is required</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="input-block">
+          <label for="pass">Password</label>
+          <input type="password" id="pass" formControlName="pass">
+        </div>
+
+        <div *ngIf="createForm.controls['pass'].invalid && 
+          (createForm.controls['pass'].dirty || createForm.controls['pass'].touched)" class="error">
+          <span *ngIf="createForm.controls['pass'].errors.required">Password is required</span>
+        </div>
+      </div>
+
+      <div class="button-block">
+        <button type="submit" class="btn-green" [disabled]="!createForm.valid">Create</button>
+        <button type="button" class="btn-red" (click)="onCancel()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
