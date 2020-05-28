@@ -11,8 +11,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./create-user.component.scss']
 })
 export class CreateUserComponent implements OnInit {
-  public userEmail: string;
-  public userPass: string;
   public createForm: FormGroup;
   public errorMessage: string;
 
@@ -29,13 +27,13 @@ export class CreateUserComponent implements OnInit {
   onCreate() {
     const formValue = this.createForm.value;
     this.userService.createUser(formValue)
-      .subscribe((res: IServerModel) => {
-        if (res.success) {
-          this.router.navigate(['/start']);
-        } else {
-          this.errorMessage = res.message;
-        }
-      });
+    .subscribe((res: IServerModel) => {
+      if (res.success) {
+        this.router.navigate(['']);
+      } else {
+        this.errorMessage = res.message;
+      }
+    });
   }
 
   onCancel() {

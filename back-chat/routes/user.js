@@ -1,4 +1,4 @@
-const models = require('../models/user');
+const User = require('../models/user');
 // let jwt = require('jsonwebtoken');
 
 module.exports = function(router) {
@@ -23,7 +23,7 @@ module.exports = function(router) {
 
   router.post('/api/register', async (req, res, next) => {
     try {
-      const user = await models.User.findOne({
+      const user = await User.findOne({
         where: {
           email: req.body.email
         }
