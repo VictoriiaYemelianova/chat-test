@@ -1,7 +1,12 @@
 export interface IServerModel {
   success: boolean;
-  items: Array<IUser | IMessage>;
+  items: Array<IUserToken | IMessage>;
   message: string;
+}
+
+export interface IUserToken {
+  token: string;
+  user: IUser;
 }
 
 export interface IUser {
