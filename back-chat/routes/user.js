@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const models = require('../models/index');
 // let jwt = require('jsonwebtoken');
 
 module.exports = function(router) {
@@ -12,6 +12,16 @@ module.exports = function(router) {
 
       if(!user) {
         res.message = 'Такого пользователя не существует.';
+      } else {
+        if (user.password === req.body.password) {
+          let currentUser = {
+            user: user
+          }
+
+          res.items = currentUser;
+        } else {
+          res.message = 'Неверный пароль.'
+        };
       }
 
       next();
@@ -23,7 +33,7 @@ module.exports = function(router) {
 
   router.post('/api/register', async (req, res, next) => {
     try {
-      const user = await User.findOne({
+      const user = await models.User.findOne({
         where: {
           email: req.body.email
         }
@@ -44,12 +54,12 @@ module.exports = function(router) {
           let currentUser = {
             user: newUser
           }
-
           res.items = currentUser;
-        } else {
-          res.message = 'Пользователь с таким именем уже существует.';
-        }
+        } 
 
+        next();
+      } else {
+        res.message = 'Пользователь с таким именем уже существует.';
         next();
       }
     } catch (err) {
