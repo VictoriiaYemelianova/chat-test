@@ -3,12 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { FirstPageComponent } from './first-page/first-page.component';
 import { LogUserComponent } from './log-user/log-user.component';
 import { CreateUserComponent } from './create-user/create-user.component';
+import { GroupDialogueComponent } from './group-dialogue/group-dialogue.component';
 
 
 const routes: Routes = [
   { path: 'main-page', component: FirstPageComponent },
   { path: 'login', component: LogUserComponent },
   { path: 'create-user', component: CreateUserComponent },
+  { path: 'group-dialogue', component: GroupDialogueComponent },
   { path: '', redirectTo: '/main-page', pathMatch: 'full' }
 ];
 

@@ -29,7 +29,7 @@ export class LogUserComponent implements OnInit {
     this.userService.logUser(formValue)
     .subscribe((res: IServerModel) => {
       if (res.success) {
-        this.router.navigate(['']);
+        this.router.navigate(['/group-dialogue']);
       } else {
         this.errorMessage = res.message;
       }
