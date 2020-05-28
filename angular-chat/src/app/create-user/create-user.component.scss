@@ -18,8 +18,16 @@
   background-color: #ffffff;
 }
 
+.main-page-link {
+  width: 100px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .anon-img {
-  margin-top: 10%;
+  margin-top: 5%;
   margin-bottom: 5%;
 }
 
@@ -36,12 +44,13 @@
 }
 
 .form-content {
-  width: 50%;
+  width: 70%;
   min-height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #ffffff;
+  padding: 10px 0;
 }
 
 .info-message {
@@ -91,8 +100,6 @@
 }
 
 .button-block {
-  height: 50px;
-  
   .btn-green {
     margin-right: 10px;
   }

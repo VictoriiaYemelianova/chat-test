@@ -6,10 +6,10 @@ import { CreateUserComponent } from './create-user/create-user.component';
 
 
 const routes: Routes = [
-  { path: 'start', component: FirstPageComponent },
+  { path: 'main-page', component: FirstPageComponent },
   { path: 'login', component: LogUserComponent },
   { path: 'create-user', component: CreateUserComponent },
-  { path: '', redirectTo: '/start', pathMatch: 'full' }
+  { path: '', redirectTo: '/main-page', pathMatch: 'full' }
 ];
 
 @NgModule({
