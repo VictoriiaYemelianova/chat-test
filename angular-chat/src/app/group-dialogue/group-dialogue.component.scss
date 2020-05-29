@@ -37,19 +37,17 @@
   }
   
   .message-content {
-    width: 90%;
     height: 95%;
-    margin: 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
 
     .dialogue {
       height: 89%;
+      padding: 1% 5%;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding-bottom: 1%;
       border-bottom: 1px solid #DCDCDC;
 
       .left-message,
@@ -98,6 +96,7 @@
 
       input {
         width: 350px;
+        min-width: 55px;
         height: 30px;
         margin: 0 35px;
         padding: 0 10px;
