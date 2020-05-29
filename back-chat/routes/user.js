@@ -86,5 +86,21 @@ module.exports = function (router) {
     }
   });
 
+  router.delete('/user-delete/:id', async (req, res, next) => {
+    try {
+      const deleteUser = await models.User.destroy({
+        where: {
+          id: req.params.id
+        }
+      });
+
+      res.items = deleteUser;
+      next();
+    } catch (err) {
+      res.message = err.message;
+      next();
+    }
+  })
+
   router.use('/api', middleware);
 }
