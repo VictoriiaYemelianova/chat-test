@@ -21,7 +21,7 @@
         <div *ngIf="loginForm.controls['email'].invalid && 
           (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)" class="error">
           <span *ngIf="loginForm.controls['email'].errors.required">Email is required</span>
-          <span *ngIf="loginForm.controls['email'].errors.email">Invalid email</span>
+          <span *ngIf="loginForm.controls['email'].errors.pattern">Invalid email</span>
         </div>
 
       </div>
@@ -29,7 +29,7 @@
       <div class="form-group">
         <div class="input-block">
           <label for="password">Password:</label>
-          <input type="text" id="password" formControlName="password">
+          <input type="password" id="password" formControlName="password">
         </div>
 
         <div *ngIf="loginForm.controls['password'].invalid && 

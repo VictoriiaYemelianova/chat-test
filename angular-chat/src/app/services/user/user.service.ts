@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class UserService {
-  public currentUser: IUserToken;
+  public currentUserToken: IUserToken;
 
   constructor( private http: HttpClient ) {
     this.getItemLocalStorage('user');
@@ -19,16 +19,17 @@ export class UserService {
     const user = localStorage.getItem(keyUser);
 
     if (user) {
-      this.currentUser = JSON.parse(user);
+      this.currentUserToken = JSON.parse(user);
     }
   }
 
-  logUser(user: IUser) {
+  logUser(user: IUser): Observable<IServerModel> {
     return this.http.post(`${url}/login`, user).pipe(
       map((res: IServerModel) => {
         if (res.success) {
-          this.currentUser = res.items[0] as IUserToken;
-          localStorage.setItem('user', JSON.stringify(this.currentUser));
+          this.currentUserToken = res.items[0] as IUserToken;
+          this.currentUserToken.user.online = true;
+          localStorage.setItem('user', JSON.stringify(this.currentUserToken));
         }
 
         return res;
@@ -36,15 +37,23 @@ export class UserService {
     );
   }
 
-  createUser(user: IUser) {
+  createUser(user: IUser): Observable<IServerModel> {
     return this.http.post(`${url}/register`, user).pipe(
       map((res: IServerModel) => {
         if (res.success) {
-          this.currentUser = res.items[0] as IUserToken;
+          this.currentUserToken = res.items[0] as IUserToken;
         }
 
         return res;
       })
     );
+  }
+
+  deleteUser(id) {
+    return this.http.delete(`${url}/user-delete/${id}`);
+  }
+
+  logOut() {
+    localStorage.clear();
   }
 }

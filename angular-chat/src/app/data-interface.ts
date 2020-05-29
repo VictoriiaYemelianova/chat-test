@@ -14,6 +14,7 @@ export interface IUser {
   email: string;
   login: string;
   password: string;
+  online?: boolean;
 }
 
 export interface IMessage {
@@ -21,6 +22,7 @@ export interface IMessage {
   message: string;
   idUser: number;
   createdAt: string;
+  updateAt: string;
 }
 
 export interface IUserToken {

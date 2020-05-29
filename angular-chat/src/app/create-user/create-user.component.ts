@@ -18,7 +18,8 @@ export class CreateUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm = new FormGroup({
-      email: new FormControl('', Validators.required),
+      email: new FormControl('',
+        [Validators.required, Validators.pattern(/^[\D]+@[a-z]{2,}\.[a-z]{2,}/g)]),
       login: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
     });

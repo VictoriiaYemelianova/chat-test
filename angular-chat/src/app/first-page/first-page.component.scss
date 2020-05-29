@@ -1,7 +1,7 @@
 .main-content {
   width: 80%;
   height: 100%;
-  min-height: 1000px;
+  // min-height: 1000px;
   margin: 0 auto;
   background-color: #F8F8FF;
   border-right: 1px solid #DCDCDC;
@@ -27,6 +27,7 @@
   font-size: 25px;
   text-align: center;
   padding: 2%;
+  border: 1px solid #DCDCDC;
 }
 
 .right-content {

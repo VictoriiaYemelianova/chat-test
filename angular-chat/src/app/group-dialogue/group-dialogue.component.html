@@ -1,1 +1,35 @@
-<p>group-dialogue works!</p>
+<div class="main">
+
+  <div class="main-content">
+    <div class="online-users"></div>
+
+    <div class="dialogue-content">
+      <div class="head-dialogue">
+        <span>Group chat</span>
+        <span (click)="logOut()">Log out</span>
+      </div>
+
+      <div class="message-content">
+        <div class="dialogue">
+          <div *ngFor="let message of messages"
+            [className]="+message.idUser === userId ? 'right-message ' : 'left-message'">
+            <span> {{ message.createdAt |  date: 'short'}} </span>
+            {{ message.message }}
+            <span> {{userName}} send</span>
+          </div>
+        </div>
+
+        <div class="dialogue-message">
+          <div class="info-oval user-name">
+            {{ userName }}
+          </div>
+          <input type="text" [(ngModel)]="message">
+          <button class="info-oval" (click)="onSend()">send</button>
+        </div>
+
+        <div class="footer-content"> </div>
+      </div>
+    </div>
+  </div>
+
+</div>

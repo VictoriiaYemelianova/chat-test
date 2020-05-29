@@ -21,6 +21,7 @@
         <div *ngIf="createForm.controls['email'].invalid && 
           (createForm.controls['email'].dirty || createForm.controls['email'].touched)" class="error">
           <span *ngIf="createForm.controls['email'].errors.required">Email is required</span>
+          <span *ngIf="createForm.controls['email'].errors.pattern">Invalid email</span>
         </div>
       </div>
 

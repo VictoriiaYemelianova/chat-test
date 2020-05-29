@@ -19,7 +19,7 @@ export class LogUserComponent implements OnInit {
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       email: new FormControl('',
-      [Validators.required, Validators.email]),
+      [Validators.required, Validators.pattern(/^[\D]+@[a-z]{2,}\.[a-z]{2,}/g)]),
       password: new FormControl('', Validators.required)
     });
   }
