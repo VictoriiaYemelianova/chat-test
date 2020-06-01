@@ -20,8 +20,9 @@ export interface IUser {
 export interface IMessage {
   id?: string;
   message: string;
+  userLogin: string;
   idUser: number;
-  createdAt: string;
+  createAt: string;
   updateAt: string;
 }
 

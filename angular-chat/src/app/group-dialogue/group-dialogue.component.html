@@ -13,9 +13,9 @@
         <div class="dialogue">
           <div *ngFor="let message of messages"
             [className]="+message.idUser === userId ? 'right-message ' : 'left-message'">
-            <span> {{ message.createdAt |  date: 'short'}} </span>
+            <span> {{ message.createAt |  date: 'short'}} </span>
             {{ message.message }}
-            <span> {{userName}} send</span>
+            <span> {{message.userLogin}} send</span>
           </div>
         </div>
 

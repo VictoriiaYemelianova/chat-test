@@ -5,7 +5,10 @@ module.exports = (sequelize, DataTypes) => {
     idUser: DataTypes.INTEGER
   }, {});
   Message.associate = function(models) {
-    // associations can be defined here
+    Message.belongsTo(models.User, {
+      foreignKey: 'idUser',
+      allowNull: false
+    })
   };
   return Message;
 };

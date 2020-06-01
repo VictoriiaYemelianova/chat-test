@@ -26,7 +26,7 @@ export class GroupDialogueComponent implements OnInit {
 
     this.messageService.getAllMessage().subscribe((res: IServerModel) => {
       if (res.success) {
-        this.messages = res.items as Array<IMessage>;
+        this.messages = res.items as IMessage[];
       }
     });
   }
