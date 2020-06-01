@@ -27,7 +27,7 @@ module.exports = function(router) {
         });
 
         newArrayMessage.sort((a, b) => {
-           return  new Date(b.createAt) - new Date(a.createAt);
+           return  new Date(a.createAt) - new Date(b.createAt);
         })
 
         res.items = newArrayMessage;

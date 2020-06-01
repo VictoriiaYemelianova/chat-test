@@ -23,7 +23,7 @@
           <div class="info-oval user-name">
             {{ userName }}
           </div>
-          <input type="text" [(ngModel)]="message">
+          <input type="text" [(ngModel)]="message" (keydown.enter)="onSend()">
           <button class="info-oval" (click)="onSend()">send</button>
         </div>
 
