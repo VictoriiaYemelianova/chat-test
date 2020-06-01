@@ -68,8 +68,12 @@
         flex-direction: column;
         margin: 5px 0;
 
-        span {
-          font-size: 9px;
+        .small {
+          font-size: 11px;
+        }
+
+        .name-user {
+          color: chocolate;
         }
       }
 
