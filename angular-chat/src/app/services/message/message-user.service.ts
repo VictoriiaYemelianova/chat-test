@@ -17,7 +17,7 @@ export class MessageUserService {
   }
 
   getAllMessage() {
-    return this.http.get(`${apiUrl}/message`, {headers: {Authorization: 'Bearer ' + this.token}});
+    return this.http.get(`${apiUrl}/message`);
   }
 
   addNewMessage(message) {

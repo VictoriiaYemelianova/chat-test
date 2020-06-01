@@ -29,10 +29,21 @@
     background-color: #B0C4DE;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+    padding: 0 20px;
   
     span {
       font-size: 20px;
+    }
+
+    .group-chat {
+      flex: 1;
+      text-align: center;
+    }
+
+    .logout:hover {
+      cursor: pointer;
+      color: brown;
     }
   }
   
@@ -55,7 +66,7 @@
         width: 100%;
         display: flex;
         flex-direction: column;
-        margin-bottom: 10px;
+        margin: 5px 0;
 
         span {
           font-size: 9px;

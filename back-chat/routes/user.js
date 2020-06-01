@@ -102,5 +102,5 @@ module.exports = function (router) {
     }
   })
 
-  // router.use('/api', middleware);
+  router.use('/api', middleware);
 }
