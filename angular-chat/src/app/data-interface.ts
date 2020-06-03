@@ -14,7 +14,6 @@ export interface IUser {
   email: string;
   login: string;
   password: string;
-  online?: boolean;
 }
 
 export interface IMessage {
@@ -29,4 +28,8 @@ export interface IMessage {
 export interface IUserToken {
   token: string;
   user: IUser;
+}
+
+export interface IUserOnline {
+  users: Array<string>;
 }
