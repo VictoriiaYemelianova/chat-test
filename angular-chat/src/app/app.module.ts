@@ -13,6 +13,7 @@ import { CreateUserComponent } from './create-user/create-user.component';
 import { FirstPageComponent } from './first-page/first-page.component';
 import { GroupDialogueComponent } from './group-dialogue/group-dialogue.component';
 import { ParamInterceptor } from './param.interceptor';
+import { ChatPageComponent } from './chat-page/chat-page.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
 
@@ -22,7 +23,8 @@ const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
     LogUserComponent,
     CreateUserComponent,
     FirstPageComponent,
-    GroupDialogueComponent
+    GroupDialogueComponent,
+    ChatPageComponent
   ],
   imports: [
     BrowserModule,
