@@ -2,14 +2,18 @@ const models = require('./models/index');
 
 module.exports = function (io) {
   io.on('connection', socket => {
-    console.log('a user connected');
-    console.log(socket);
-
+    const users = [];
     // socket.on('disconnect', () => {
     //   console.log('user disconnected');
     // })
+    socket.on('onlineUser', (data) => {
+      socket.user = data;
+      users.push(socket.user)
+      io.emit("resUserOnline", users)
+    })
 
     socket.on('addMessage', async req => {
+      console.log(req.message.path)
       try {
         const currentMessage = {
           message: req.message,

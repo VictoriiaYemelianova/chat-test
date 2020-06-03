@@ -5,6 +5,12 @@
       <div class="head-dialogue">
         <span class="group-chat">Online</span>
       </div>
+
+      <div class="online-users-list">
+        <div class="users-content">
+          <div class="user-name"></div>
+        </div>
+      </div>
     </div>
 
     <div class="dialogue-content">
@@ -18,7 +24,7 @@
           <div *ngFor="let message of messages"
             [className]="+message.idUser === userId ? 'right-message ' : 'left-message'">
             <span class="small name-user"> {{message.userLogin}} </span>
-            <span> {{ message.message }} </span> 
+            <div class="message-string">{{ message.message }}</div>
             <span class="small"> {{ message.createAt |  date: 'short'}} </span>
           </div>
         </div>
@@ -27,8 +33,10 @@
           <div class="info-oval user-name">
             {{ userName }}
           </div>
+          <label for="file-loader" class="label">$</label>
+          <input type="file" id="file-loader" (change)="onFileLoad($event)">
           <input type="text" id="input" [(ngModel)]="message" (keydown.enter)="onSend()">
-          <button type="submit" class="info-oval" (click)="onSend()" [disabled]="!message">send</button>
+          <button type="submit" class="info-oval" (click)="onSend()" [disabled]="!message && !selectedFile">send</button>
         </div>
 
         <div class="footer-content"> </div>

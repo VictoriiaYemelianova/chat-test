@@ -3,6 +3,8 @@ import { MessageUserService } from '../services/message/message-user.service';
 import { IServerModel, IMessage } from '../data-interface';
 import { UserService } from '../services/user/user.service';
 import { Router } from '@angular/router';
+import { SocketService } from '../services/socket/socket.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-group-dialogue',
@@ -14,11 +16,16 @@ export class GroupDialogueComponent implements OnInit {
   public messages: Array<IMessage>;
   public userName: string;
   public userId: any;
+  public usersOnlineList: Array<string> = [];
+  public selectedFile: File;
 
   constructor(
     private messageService: MessageUserService,
     private userService: UserService,
-    private router: Router) { }
+    private router: Router,
+    private socketService: SocketService,
+    private http: HttpClient
+    ) { }
 
   ngOnInit(): void {
     this.userName = this.userService.currentUserToken.user.login;
@@ -35,13 +42,33 @@ export class GroupDialogueComponent implements OnInit {
         this.messages.push(res.items[0] as IMessage);
       }
     });
+
+    this.socketService.userNameOnline();
+
+    this.socketService.usersOnline.subscribe((res: Array<string>) =>
+      console.log(res));
+      // this.usersOnlineList = res;
+  }
+
+  onFileLoad(event) {
+    this.selectedFile = event.target.files[0] as File;
   }
 
   onSend() {
+    const fd = new FormData();
     const newMessageObj = {
-      message: this.message,
+      message: null,
       idUser: this.userId
     };
+
+    if (this.message) {
+      newMessageObj.message = this.message;
+    }
+
+    if (this.selectedFile) {
+      fd.append('image', this.selectedFile, this.selectedFile.name);
+      newMessageObj.message = fd;
+    }
 
     this.messageService.addNewMessage(newMessageObj);
   }

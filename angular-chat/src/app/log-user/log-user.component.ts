@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { UserService } from '../services/user/user.service';
 import { IServerModel } from '../data-interface';
+import { SocketService } from '../services/socket/socket.service';
 
 @Component({
   selector: 'app-log-user',
@@ -14,7 +15,11 @@ export class LogUserComponent implements OnInit {
   public errorMessage: string;
   public loginForm: FormGroup;
 
-  constructor( private userService: UserService, private router: Router ) { }
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private socketService: SocketService
+    ) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -29,6 +34,7 @@ export class LogUserComponent implements OnInit {
     this.userService.logUser(formValue)
     .subscribe((res: IServerModel) => {
       if (res.success) {
+        this.socketService.userNameOnline();
         this.router.navigate(['/group-dialogue']);
       } else {
         this.errorMessage = res.message;
