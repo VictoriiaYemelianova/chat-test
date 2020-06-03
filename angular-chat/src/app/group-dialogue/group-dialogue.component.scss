@@ -18,6 +18,15 @@
 .online-users {
   width: 30%;
   border-right: 1px solid #DCDCDC;
+
+  .head-dialogue {
+    height: 5%;
+    background-color: #B0C4DE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+  }
 }
 
   
@@ -56,6 +65,7 @@
     .dialogue {
       height: 89%;
       padding: 1% 5%;
+      overflow: scroll;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;

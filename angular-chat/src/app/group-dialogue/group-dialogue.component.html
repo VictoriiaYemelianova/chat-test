@@ -1,7 +1,11 @@
 <div class="main">
 
   <div class="main-content">
-    <div class="online-users"></div>
+    <div class="online-users">
+      <div class="head-dialogue">
+        <span class="group-chat">Online</span>
+      </div>
+    </div>
 
     <div class="dialogue-content">
       <div class="head-dialogue">
@@ -23,8 +27,8 @@
           <div class="info-oval user-name">
             {{ userName }}
           </div>
-          <input type="text" [(ngModel)]="message" (keydown.enter)="onSend()">
-          <button class="info-oval" (click)="onSend()">send</button>
+          <input type="text" id="input" [(ngModel)]="message" (keydown.enter)="onSend()">
+          <button type="submit" class="info-oval" (click)="onSend()" [disabled]="!message">send</button>
         </div>
 
         <div class="footer-content"> </div>

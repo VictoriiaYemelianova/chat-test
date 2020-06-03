@@ -3,6 +3,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 const route = require('./routes/rout');
+const socket = require('./socket.io');
+
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 const router = express.Router();
 
@@ -13,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 route(router);
 app.use('/', router);
 
+socket(io);
 
 router.use(function(req, res, nex) {
   const result = {
@@ -39,3 +44,7 @@ router.use(function(req, res, nex) {
 app.listen(3000, function(){
   console.log('Express server listening on port ' + 3000);
 });
+
+http.listen(4444, function() {
+  console.log('IO server listening on port ' + 4444)
+})

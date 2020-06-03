@@ -1,18 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
-import { apiUrl } from 'src/app/constants';
+import { urlSocket, apiUrl } from 'src/app/constants';
 import { IUser, IServerModel, IUserToken, IMessage } from 'src/app/data-interface';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UserService } from '../user/user.service';
-import { map } from 'rxjs/operators';
+import { Socket } from 'ngx-socket-io';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessageUserService {
   private token: string;
+  public currentMessage = this.socket.fromEvent<IServerModel>('recieveMessage');
+  // public currentOnlineUsers = this.socket.fromEvent<any>('onlineUsers');
+  public usersOnline = [];
 
-  constructor( private http: HttpClient, private userSevice: UserService ) {
+  constructor(
+      private http: HttpClient,
+      private userSevice: UserService ,
+      private socket: Socket ) {
     this.token = this.userSevice.currentUserToken.token;
   }
 
@@ -20,12 +26,21 @@ export class MessageUserService {
     return this.http.get(`${apiUrl}/message`);
   }
 
-  addNewMessage(message) {
-    return this.http.post(`${apiUrl}/message/create`, message);
+  getOnlineUser() {
+    this.socket.emit('getOnline');
   }
 
-  updateMessage() {}
+  addNewMessage(message) {
+    // return this.http.post(`${urlSocket}/message/create`, message);
+    this.socket.emit('addMessage', message);
+  }
 
-  deleteMessage() {}
+  updateMessage(message) {
+    this.socket.emit('updateMessage', message);
+  }
+
+  deleteMessage(message) {
+    this.socket.emit('updateMessage', message);
+  }
 
 }

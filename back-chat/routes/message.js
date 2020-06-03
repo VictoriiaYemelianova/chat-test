@@ -40,34 +40,6 @@ module.exports = function(router) {
     }
   });
 
-  router.post('/api/message/create', async (req, res, next) => {
-    try {
-      const currentMessage = {
-        message: req.body.message,
-        idUser: req.body.idUser,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }
-
-      const newMessageUser = await models.Message.create(currentMessage);
-      const newMessage = {
-        id: newMessageUser.id,
-        message: newMessageUser.message,
-        userLogin: newMessageUser.User.login,
-        idUser: newMessageUser.User.id,
-        createAt: newMessageUser.createdAt,
-        updatedAt: newMessageUser.updatedAt
-      }
-
-      res.items = newMessage;
-
-      next();
-    } catch (err) {
-      res.message = err.message;
-      next();
-    }
-  });
-
   router.put('/api/message/update', async (req, res, next) => {
     try {
       const currentMessage = {

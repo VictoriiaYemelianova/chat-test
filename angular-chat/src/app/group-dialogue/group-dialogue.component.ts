@@ -29,6 +29,12 @@ export class GroupDialogueComponent implements OnInit {
         this.messages = res.items as IMessage[];
       }
     });
+
+    this.messageService.currentMessage.subscribe((res: IServerModel) => {
+      if (res.success) {
+        this.messages.push(res.items[0] as IMessage);
+      }
+    });
   }
 
   onSend() {
@@ -37,11 +43,7 @@ export class GroupDialogueComponent implements OnInit {
       idUser: this.userId
     };
 
-    this.messageService.addNewMessage(newMessageObj).subscribe((res: IServerModel) => {
-      if (res.success) {
-        this.messages.push(res.items[0] as IMessage);
-      }
-    });
+    this.messageService.addNewMessage(newMessageObj);
   }
 
   logOut() {

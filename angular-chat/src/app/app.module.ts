@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -11,8 +12,9 @@ import { LogUserComponent } from './log-user/log-user.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { FirstPageComponent } from './first-page/first-page.component';
 import { GroupDialogueComponent } from './group-dialogue/group-dialogue.component';
-import { MessageUserService } from './services/message/message-user.service';
 import { ParamInterceptor } from './param.interceptor';
+
+const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
 
 @NgModule({
   declarations: [
@@ -27,14 +29,16 @@ import { ParamInterceptor } from './param.interceptor';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    SocketIoModule.forRoot(config)
   ],
   providers: [
-    MessageUserService, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: ParamInterceptor,
-    multi: true
-  }],
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ParamInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

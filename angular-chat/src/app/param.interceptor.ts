@@ -19,13 +19,15 @@ export class ParamInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
+    console.log(req);
     const tokenReq = req.clone({
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + this.token
       })
     });
 
-    console.log(tokenReq);
-    return next.handle(tokenReq);
+    if (this.userSevice.currentUserToken) {
+      return next.handle(tokenReq);
+    }
   }
 }
