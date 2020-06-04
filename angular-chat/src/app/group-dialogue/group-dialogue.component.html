@@ -6,9 +6,9 @@
         <span class="group-chat">Online</span>
       </div>
 
-      <div class="online-users-list">
-        <div class="users-content">
-          <div class="user-name"></div>
+      <div *ngFor="let user of usersOnlineList"  class="online-users-list">
+        <div *ngIf="user !== userName" class="user-name">
+          <span> {{user}} </span>
         </div>
       </div>
     </div>
@@ -34,7 +34,7 @@
             {{ userName }}
           </div>
           <label for="file-loader" class="label">$</label>
-          <input type="file" id="file-loader" (change)="onFileLoad($event)">
+          <input type="file" id="file-loader" (change)="onSelectedFile($event)">
           <input type="text" id="input" [(ngModel)]="message" (keydown.enter)="onSend()">
           <button type="submit" class="info-oval" (click)="onSend()" [disabled]="!message && !selectedFile">send</button>
         </div>

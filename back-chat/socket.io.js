@@ -1,15 +1,19 @@
 const models = require('./models/index');
+// const multer = require('multer');
+// const upload = multer({dest: 'uploads/'});
 
-module.exports = function (io) {
+module.exports = function (io, upload) {
   io.on('connection', socket => {
-    const users = [];
     // socket.on('disconnect', () => {
     //   console.log('user disconnected');
     // })
     socket.on('onlineUser', (data) => {
+      let usersArray = [];
       socket.user = data;
-      users.push(socket.user)
-      io.emit("resUserOnline", users)
+      for(var a in io.sockets.connected){
+        usersArray.push(io.sockets.connected[a].user);
+      }
+      io.emit("resUserOnline", usersArray)
     })
 
     socket.on('addMessage', async req => {

@@ -16,7 +16,7 @@ export class GroupDialogueComponent implements OnInit {
   public messages: Array<IMessage>;
   public userName: string;
   public userId: any;
-  public usersOnlineList: Array<string> = [];
+  public usersOnlineList: Array<string>;
   public selectedFile: File;
 
   constructor(
@@ -45,12 +45,12 @@ export class GroupDialogueComponent implements OnInit {
 
     this.socketService.userNameOnline();
 
-    this.socketService.usersOnline.subscribe((res: Array<string>) =>
-      console.log(res));
-      // this.usersOnlineList = res;
+    this.socketService.usersOnline.subscribe((res: Array<string>) => {
+      this.usersOnlineList = res;
+    });
   }
 
-  onFileLoad(event) {
+  onSelectedFile(event) {
     this.selectedFile = event.target.files[0] as File;
   }
 
@@ -66,9 +66,13 @@ export class GroupDialogueComponent implements OnInit {
     }
 
     if (this.selectedFile) {
+      console.log(this.selectedFile)
+      console.log(this.selectedFile.name)
       fd.append('image', this.selectedFile, this.selectedFile.name);
+      console.log(fd)
       newMessageObj.message = fd;
     }
+    console.log(newMessageObj)
 
     this.messageService.addNewMessage(newMessageObj);
   }

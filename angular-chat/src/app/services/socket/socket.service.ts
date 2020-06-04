@@ -14,10 +14,9 @@ export class SocketService {
     private userService: UserService,
     private socket: Socket
     ) {
-      this.socket.fromEvent<string>('resUserOnline').subscribe((data) => {
-        console.log(data)
-        const currentUsersList = this.usersOnline.value;
-        currentUsersList.push(data);
+      this.socket.fromEvent<string>('resUserOnline').subscribe((data: any) => {
+        const currentUsersList = data;
+        console.log(currentUsersList);
         this.usersOnline.next(currentUsersList);
       });
     }

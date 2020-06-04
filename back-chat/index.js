@@ -8,6 +8,9 @@ const socket = require('./socket.io');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
+const multer = require('multer');
+const upload = multer({dest: 'uploads/'});
+
 const router = express.Router();
 
 app.use(cors());
@@ -17,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 route(router);
 app.use('/', router);
 
-socket(io);
+socket(io, upload);
 
 router.use(function(req, res, nex) {
   const result = {
