@@ -8,6 +8,7 @@ import { UserService } from '../user/user.service';
   providedIn: 'root'
 })
 export class SocketService {
+  public user;
   public usersOnline: BehaviorSubject<Array<string>> = new BehaviorSubject<Array<string>>([]);
 
   constructor(
@@ -16,14 +17,12 @@ export class SocketService {
     ) {
       this.socket.fromEvent<string>('resUserOnline').subscribe((data: any) => {
         const currentUsersList = data;
-        console.log(currentUsersList);
         this.usersOnline.next(currentUsersList);
       });
     }
 
     userNameOnline() {
-      const user =  this.userService.currentUserToken.user.login;
-
-      this.socket.emit('onlineUser', user);
+      this.user =  this.userService.currentUserToken.user.login;
+      this.socket.emit('onlineUser', this.user);
     }
 }

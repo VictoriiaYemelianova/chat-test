@@ -1,23 +1,24 @@
 const models = require('./models/index');
-// const multer = require('multer');
-// const upload = multer({dest: 'uploads/'});
+var ss = require('socket.io-stream');
+var path = require('path');
+let usersArray = [];
 
-module.exports = function (io, upload) {
+module.exports = function (io) {
   io.on('connection', socket => {
-    // socket.on('disconnect', () => {
-    //   console.log('user disconnected');
-    // })
+    console.log("connection")
+
     socket.on('onlineUser', (data) => {
-      let usersArray = [];
       socket.user = data;
-      for(var a in io.sockets.connected){
-        usersArray.push(io.sockets.connected[a].user);
+      for (var a in io.sockets.connected) {
+        if(io.sockets.connected[a].user !== undefined ) {
+          usersArray.push(io.sockets.connected[a].user);
+        }
       }
+
       io.emit("resUserOnline", usersArray)
     })
 
     socket.on('addMessage', async req => {
-      console.log(req.message.path)
       try {
         const currentMessage = {
           message: req.message,
@@ -28,7 +29,7 @@ module.exports = function (io, upload) {
 
         const newMessageUser = await models.Message.create(currentMessage);
         const user = await models.User.findOne({
-          where: { id: req.idUser}
+          where: { id: req.idUser }
         });
         const newMessage = {
           id: newMessageUser.id,
@@ -45,8 +46,12 @@ module.exports = function (io, upload) {
         const response = modelResponse(err.message);
         io.emit("recieveMessage", response);
       }
+    });
 
-    })
+    ss(socket).on('profile-image', function(stream, data) {
+      var filename = path.basename(data.name);
+      stream.pipe(fs.createWriteStream(filename));
+    });
 
     socket.on('updateMessage', async req => {
       try {
@@ -55,7 +60,7 @@ module.exports = function (io, upload) {
           idUser: req.idUser,
           updatedAt: new Date()
         };
-  
+
         await models.Message.update(
           currentMessage,
           {
@@ -64,22 +69,22 @@ module.exports = function (io, upload) {
             }
           }
         );
-  
+
         const updatedMessage = await models.Message.findOne({
           where: {
             id: req.id
           }
         });
-  
+
         const response = modelResponse(updatedMessage);
         io.emit("recieveMessage", response);
-  
+
       } catch (err) {
-          const response = modelResponse(err.message);
-          io.emit("recieveMessage", response);
+        const response = modelResponse(err.message);
+        io.emit("recieveMessage", response);
       }
     });
-  
+
     socket.on('deleteMessage', async req => {
       try {
         const deleteMessage = await models.Message.destroy({
@@ -87,13 +92,17 @@ module.exports = function (io, upload) {
             id: req.params.id
           }
         });
-  
+
         const response = modelResponse();
         io.emit("recieveMessage", response);
       } catch (err) {
         const response = modelResponse(err.message);
         io.emit("recieveMessage", response);
       }
+    })
+
+    socket.on('disconnect', () => {
+      console.log('disconnect')
     })
   });
 

@@ -66,13 +66,10 @@ export class GroupDialogueComponent implements OnInit {
     }
 
     if (this.selectedFile) {
-      console.log(this.selectedFile)
-      console.log(this.selectedFile.name)
-      fd.append('image', this.selectedFile, this.selectedFile.name);
-      console.log(fd)
-      newMessageObj.message = fd;
+      // fd.append('image', this.selectedFile, this.selectedFile.name);
+      newMessageObj.message = this.selectedFile;
     }
-    console.log(newMessageObj)
+    console.log(newMessageObj);
 
     this.messageService.addNewMessage(newMessageObj);
   }
