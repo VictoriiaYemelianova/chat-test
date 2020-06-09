@@ -8,6 +8,10 @@ const result = {
 
 module.exports = (req, res, next) => {
   try {
+    if(req.path.includes('/get-img/')) {
+      next();
+      return;
+    }
     let token = req.headers['x-access-token'] || req.headers['authorization'];
     if (token.startsWith('Bearer ')) {
       // Remove Bearer from string

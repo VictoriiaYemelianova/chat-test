@@ -6,7 +6,7 @@
         <span class="group-chat">Online</span>
       </div>
 
-      <div *ngFor="let user of usersOnlineList"  class="online-users-list">
+      <div *ngFor="let user of usersOnlineList" class="online-users-list">
         <div *ngIf="user !== userName" class="user-name">
           <span> {{user}} </span>
         </div>
@@ -24,7 +24,10 @@
           <div *ngFor="let message of messages"
             [className]="+message.idUser === userId ? 'right-message ' : 'left-message'">
             <span class="small name-user"> {{message.userLogin}} </span>
-            <div class="message-string">{{ message.message }}</div>
+            <div class="message-string">
+              <span>{{ message.message }}</span>
+              <img *ngIf="message.path" [src]="'http://localhost:3000/api/get-img/' + message.id" alt="chash-img">
+            </div>
             <span class="small"> {{ message.createAt |  date: 'short'}} </span>
           </div>
         </div>
@@ -36,7 +39,8 @@
           <label for="file-loader" class="label">$</label>
           <input type="file" id="file-loader" (change)="onSelectedFile($event)">
           <input type="text" id="input" [(ngModel)]="message" (keydown.enter)="onSend()">
-          <button type="submit" class="info-oval" (click)="onSend()" [disabled]="!message && !selectedFile">send</button>
+          <button type="submit" class="info-oval" (click)="onSend()"
+            [disabled]="!message && !selectedFile">send</button>
         </div>
 
         <div class="footer-content"> </div>

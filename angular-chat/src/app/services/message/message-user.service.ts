@@ -12,6 +12,7 @@ import { Socket } from 'ngx-socket-io';
 export class MessageUserService {
   private token: string;
   public currentMessage = this.socket.fromEvent<IServerModel>('recieveMessage');
+  public array = ['text', 'file', 'content', 'garlic', 'text2', 'content2', 'text5', 'text7', 'text3', 'text9'];
 
   constructor(
       private http: HttpClient,
@@ -27,6 +28,14 @@ export class MessageUserService {
   addNewMessage(message) {
     this.socket.emit('addMessage', message);
   }
+
+  addFile(data) {
+    return this.http.post(`${apiUrl}/upload-img`, data);
+  }
+
+  // getImgPath(id) {
+  //   return this.http.get(`${apiUrl}/get-img:id`);
+  // }
 
   updateMessage(message) {
     this.socket.emit('updateMessage', message);

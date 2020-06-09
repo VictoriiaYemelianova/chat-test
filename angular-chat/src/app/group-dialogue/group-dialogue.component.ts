@@ -18,6 +18,7 @@ export class GroupDialogueComponent implements OnInit {
   public userId: any;
   public usersOnlineList: Array<string>;
   public selectedFile: File;
+  public imgSrc: IMessage;
 
   constructor(
     private messageService: MessageUserService,
@@ -25,7 +26,7 @@ export class GroupDialogueComponent implements OnInit {
     private router: Router,
     private socketService: SocketService,
     private http: HttpClient
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.userName = this.userService.currentUserToken.user.login;
@@ -58,21 +59,41 @@ export class GroupDialogueComponent implements OnInit {
     const fd = new FormData();
     const newMessageObj = {
       message: null,
-      idUser: this.userId
+      idUser: this.userId,
+      imgPath: null
     };
 
     if (this.message) {
       newMessageObj.message = this.message;
+      this.messageService.addNewMessage(newMessageObj);
     }
 
     if (this.selectedFile) {
-      // fd.append('image', this.selectedFile, this.selectedFile.name);
-      newMessageObj.message = this.selectedFile;
-    }
-    console.log(newMessageObj);
+      fd.append('image', this.selectedFile, this.selectedFile.name);
 
-    this.messageService.addNewMessage(newMessageObj);
+      newMessageObj.message = fd;
+
+      this.messageService.addFile(fd).subscribe((res: any) => {
+        debugger
+        newMessageObj.imgPath = res.data;
+        this.messageService.addNewMessage(newMessageObj);
+
+      }, (err) => {
+        debugger
+      });
+    }
+    // this.messageService.createFile(this.message).subscribe(res => console.log(res));
+    // this.messageService.addContentToCreatedFile(this.message).subscribe(res => console.log(res));
   }
+
+  // getImg(id) {
+  //   this.messageService.getImgPath(id).subscribe((res: IServerModel) => {
+  //     if (res.success) {
+  //       console.log(res.items[0]);
+  //       this.imgSrc = res.items[0] as IMessage;
+  //     }
+  //   });
+  // }
 
   logOut() {
     this.userService.logOut();

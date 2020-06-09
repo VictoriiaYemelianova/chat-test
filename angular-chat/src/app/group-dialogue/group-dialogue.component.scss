@@ -107,7 +107,14 @@
       .message-string {
         width: 100%;
         min-height: 35px;
+        display: flex;
+        align-items: center;
         background-color: #DCDCDC;
+
+        img {
+          max-width: 150px;
+          max-height: 150px;
+        }
       }
     }
   

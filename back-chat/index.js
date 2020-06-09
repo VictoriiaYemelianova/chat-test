@@ -4,6 +4,7 @@ const cors = require('cors');
 const app = express();
 const route = require('./routes/rout');
 const socket = require('./socket.io');
+const formidable = require('formidable');
 
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
@@ -14,7 +15,7 @@ app.use(cors());
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-route(router);
+route(router, io, formidable);
 app.use('/', router);
 
 socket(io);
@@ -25,7 +26,6 @@ router.use(function(req, res, nex) {
     items: [],
     message: ''
   };
-
   if (res.items) {
     result.success = true;
     if (Array.isArray(res.items)) {

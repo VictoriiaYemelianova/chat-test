@@ -21,6 +21,7 @@ export interface IMessage {
   message: string;
   userLogin: string;
   idUser: number;
+  path?: string;
   createAt: string;
   updateAt: string;
 }

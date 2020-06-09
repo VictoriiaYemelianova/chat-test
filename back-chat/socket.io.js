@@ -1,6 +1,4 @@
 const models = require('./models/index');
-var ss = require('socket.io-stream');
-var path = require('path');
 let usersArray = [];
 
 module.exports = function (io) {
@@ -21,23 +19,32 @@ module.exports = function (io) {
     socket.on('addMessage', async req => {
       try {
         const currentMessage = {
-          message: req.message,
+          message: '',
           idUser: req.idUser,
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
+          path: ''
+        }
+
+        if (req.imgPath) {
+          currentMessage.path = req.imgPath;
+        } else {
+          currentMessage.message = req.message;
         }
 
         const newMessageUser = await models.Message.create(currentMessage);
         const user = await models.User.findOne({
           where: { id: req.idUser }
         });
+        
         const newMessage = {
           id: newMessageUser.id,
           message: newMessageUser.message,
           userLogin: user.login,
           idUser: user.id,
           createAt: newMessageUser.createdAt,
-          updatedAt: newMessageUser.updatedAt
+          updatedAt: newMessageUser.updatedAt,
+          path: newMessageUser.path
         }
 
         const response = modelResponse(newMessage);
@@ -46,11 +53,6 @@ module.exports = function (io) {
         const response = modelResponse(err.message);
         io.emit("recieveMessage", response);
       }
-    });
-
-    ss(socket).on('profile-image', function(stream, data) {
-      var filename = path.basename(data.name);
-      stream.pipe(fs.createWriteStream(filename));
     });
 
     socket.on('updateMessage', async req => {
@@ -107,15 +109,15 @@ module.exports = function (io) {
   });
 
 
-  function modelResponse(arr) {
+  function modelResponse(res) {
     const result = {
       success: true,
       items: [],
       message: ''
     };
 
-    if (typeof arr === "object") {
-      result.items.push(arr);
+    if (typeof res === "object") {
+      result.items.push(res);
     } else {
       result.message = res.message;
     }
