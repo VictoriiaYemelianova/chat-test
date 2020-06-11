@@ -67,3 +67,8 @@ html {
   border-bottom: 15px solid #B0C4DE;
   transform: translate(-50%, calc(-100% - 5px));
 }
+
+@font-face {
+  font-family: 'DancingScript-Regular';
+  src: url("./app/dancing-script/DancingScript-Regular.ttf") format("truetype");
+}

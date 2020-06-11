@@ -15,8 +15,10 @@
 
     <div class="dialogue-content">
       <div class="head-dialogue">
+        <fa-icon [icon]="humburger" class="humburger-icon" (click)="clickOnlineUser()"></fa-icon>
         <span class="group-chat">GROUP CHAT</span>
         <span class="logout" (click)="logOut()">LOGOUT</span>
+        <fa-icon [icon]="logout" class="logout-icon" (click)="logOut()"></fa-icon>
       </div>
 
       <div class="message-content">
@@ -29,7 +31,7 @@
               <div
                 [className]="+message.idUser === userId ? 'message-right ' : 'message-left'"
                 [appChangeColor]="message.userLogin">
-                <span>{{ message.message }}</span>
+                <span class="message-font">{{ message.message }}</span>
                 <img *ngIf="message.path" [src]="'http://localhost:3000/api/get-img/' + message.id" alt="chash-img">
               </div>
               <span class="small"> {{ message.createAt |  date: 'short'}} </span>
@@ -39,17 +41,17 @@
         </div>
 
         <div class="dialogue-message">
-          <div class="info-oval user-name">
+          <div class="info-oval user-name" id="user-name">
             {{ userName }}
           </div>
-          <label for="file-loader" class="label">$</label>
+          <label for="file-loader" class="label">
+            <fa-icon [icon]="upload" class="upload-icon"></fa-icon>
+          </label>
           <input type="file" id="file-loader" (change)="onSelectedFile($event)">
           <input type="text" id="input" [(ngModel)]="message" (keydown.enter)="onSend()">
           <button type="submit" class="info-oval" (click)="onSend()"
             [disabled]="!message && !selectedFile">send</button>
         </div>
-
-        <div class="footer-content"> </div>
       </div>
     </div>
   </div>

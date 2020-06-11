@@ -16,6 +16,8 @@ import { ParamInterceptor } from './param.interceptor';
 import { ChatPageComponent } from './chat-page/chat-page.component';
 import { ChangeColorDirective } from './directive/change-color.directive';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
 
 @NgModule({
@@ -34,7 +36,8 @@ const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config),
+    FontAwesomeModule
   ],
   providers: [
     {

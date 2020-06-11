@@ -5,6 +5,7 @@ import { UserService } from '../services/user/user.service';
 import { Router } from '@angular/router';
 import { SocketService } from '../services/socket/socket.service';
 import { HttpClient } from '@angular/common/http';
+import { faDownload, faHamburger, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-group-dialogue',
@@ -19,6 +20,9 @@ export class GroupDialogueComponent implements OnInit {
   public usersOnlineList: Array<string>;
   public selectedFile: File;
   public imgSrc: IMessage;
+  public upload = faDownload;
+  public logout = faSignOutAlt;
+  public humburger = faHamburger;
 
   constructor(
     private messageService: MessageUserService,
@@ -80,6 +84,10 @@ export class GroupDialogueComponent implements OnInit {
     }
     // this.messageService.createFile(this.message).subscribe(res => console.log(res));
     // this.messageService.addContentToCreatedFile(this.message).subscribe(res => console.log(res));
+  }
+
+  clickOnlineUser() {
+    console.log('burger')
   }
 
   logOut() {
