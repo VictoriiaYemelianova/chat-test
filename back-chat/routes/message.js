@@ -69,7 +69,6 @@ module.exports = function (router, io, formidable) {
 
       fs.readFile(imgPath.path, (err, data) => {
         if (err) throw err;
-        console.log(data)
         res.writeHead(200, { 'Content-Type': 'image/jpeg' });
         res.end(data);
       });

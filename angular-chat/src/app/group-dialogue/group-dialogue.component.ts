@@ -74,26 +74,13 @@ export class GroupDialogueComponent implements OnInit {
       newMessageObj.message = fd;
 
       this.messageService.addFile(fd).subscribe((res: any) => {
-        debugger
         newMessageObj.imgPath = res.data;
         this.messageService.addNewMessage(newMessageObj);
-
-      }, (err) => {
-        debugger
       });
     }
     // this.messageService.createFile(this.message).subscribe(res => console.log(res));
     // this.messageService.addContentToCreatedFile(this.message).subscribe(res => console.log(res));
   }
-
-  // getImg(id) {
-  //   this.messageService.getImgPath(id).subscribe((res: IServerModel) => {
-  //     if (res.success) {
-  //       console.log(res.items[0]);
-  //       this.imgSrc = res.items[0] as IMessage;
-  //     }
-  //   });
-  // }
 
   logOut() {
     this.userService.logOut();

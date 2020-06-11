@@ -34,3 +34,36 @@ html {
   color: #4B0082;
   font-size: 19px;
 }
+
+.tooltip-style {
+  min-width: 100px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #B0C4DE;
+  border-radius: 2px;
+  background-color: #ffffff;
+}
+
+.tooltip-top:before,
+.tooltip-bottom:before  {
+  content: '';
+  position: absolute;
+  display: block;    
+  width: 0px;        
+  left: 50%;
+  border: 15px solid transparent;
+}
+
+.tooltip-top:before {
+  border-bottom: 0;
+  border-top: 15px solid #B0C4DE;
+  transform: translate(-50%, calc(100% + 5px));
+}
+
+.tooltip-bottom:before {
+  border-top: 0;
+  border-bottom: 15px solid #B0C4DE;
+  transform: translate(-50%, calc(-100% - 5px));
+}

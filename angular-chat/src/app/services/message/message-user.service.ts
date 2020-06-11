@@ -33,10 +33,6 @@ export class MessageUserService {
     return this.http.post(`${apiUrl}/upload-img`, data);
   }
 
-  // getImgPath(id) {
-  //   return this.http.get(`${apiUrl}/get-img:id`);
-  // }
-
   updateMessage(message) {
     this.socket.emit('updateMessage', message);
   }

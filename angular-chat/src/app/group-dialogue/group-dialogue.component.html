@@ -21,15 +21,21 @@
 
       <div class="message-content">
         <div class="dialogue">
-          <div *ngFor="let message of messages"
-            [className]="+message.idUser === userId ? 'right-message ' : 'left-message'">
-            <span class="small name-user"> {{message.userLogin}} </span>
-            <div class="message-string">
-              <span>{{ message.message }}</span>
-              <img *ngIf="message.path" [src]="'http://localhost:3000/api/get-img/' + message.id" alt="chash-img">
+
+          <div class="test-div">
+            <div *ngFor="let message of messages"
+              [className]="+message.idUser === userId ? 'right-message ' : 'left-message'">
+              <span class="small name-user"> {{message.userLogin}} </span>
+              <div
+                [className]="+message.idUser === userId ? 'message-right ' : 'message-left'"
+                [appChangeColor]="message.userLogin">
+                <span>{{ message.message }}</span>
+                <img *ngIf="message.path" [src]="'http://localhost:3000/api/get-img/' + message.id" alt="chash-img">
+              </div>
+              <span class="small"> {{ message.createAt |  date: 'short'}} </span>
             </div>
-            <span class="small"> {{ message.createAt |  date: 'short'}} </span>
           </div>
+
         </div>
 
         <div class="dialogue-message">

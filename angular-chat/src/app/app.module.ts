@@ -14,6 +14,7 @@ import { FirstPageComponent } from './first-page/first-page.component';
 import { GroupDialogueComponent } from './group-dialogue/group-dialogue.component';
 import { ParamInterceptor } from './param.interceptor';
 import { ChatPageComponent } from './chat-page/chat-page.component';
+import { ChangeColorDirective } from './directive/change-color.directive';
 
 const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
 
@@ -24,7 +25,8 @@ const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
     CreateUserComponent,
     FirstPageComponent,
     GroupDialogueComponent,
-    ChatPageComponent
+    ChatPageComponent,
+    ChangeColorDirective
   ],
   imports: [
     BrowserModule,
