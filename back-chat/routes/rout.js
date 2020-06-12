@@ -1,7 +1,7 @@
 const user = require('./user');
 const message = require('./message');
 
-module.exports = function(router, io, formidable) {
+module.exports = function(router, formidable, sharp) {
   user(router);
-  message(router, io, formidable);
+  message(router, formidable, sharp);
 }

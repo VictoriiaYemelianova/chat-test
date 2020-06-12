@@ -32,7 +32,8 @@
                 [className]="+message.idUser === userId ? 'message-right ' : 'message-left'"
                 [appChangeColor]="message.userLogin">
                 <span class="message-font">{{ message.message }}</span>
-                <img *ngIf="message.path" [src]="'http://localhost:3000/api/get-img/' + message.id" alt="chash-img">
+                <img *ngIf="message.path && innerWidth > '601'" [src]="'http://localhost:3000/api/get-img/' + message.id + '/' + innerWidth" alt="chash-img">
+                <img *ngIf="message.path && innerWidth < '600'" [src]="'http://localhost:3000/api/get-img/' + message.id + '/' + innerWidth" alt="chash-img">
               </div>
               <span class="small"> {{ message.createAt |  date: 'short'}} </span>
             </div>

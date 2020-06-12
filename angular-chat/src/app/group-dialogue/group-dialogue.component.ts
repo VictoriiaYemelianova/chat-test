@@ -24,6 +24,8 @@ export class GroupDialogueComponent implements OnInit {
   public logout = faSignOutAlt;
   public humburger = faHamburger;
 
+  public innerWidth: any;
+
   constructor(
     private messageService: MessageUserService,
     private userService: UserService,
@@ -33,6 +35,9 @@ export class GroupDialogueComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.innerWidth = window.innerWidth;
+    console.log(this.innerWidth)
+
     this.userName = this.userService.currentUserToken.user.login;
     this.userId = this.userService.currentUserToken.user.id;
 

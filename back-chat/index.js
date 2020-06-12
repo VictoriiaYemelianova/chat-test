@@ -5,6 +5,7 @@ const app = express();
 const route = require('./routes/rout');
 const socket = require('./socket.io');
 const formidable = require('formidable');
+const sharp = require('sharp');
 
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
@@ -15,7 +16,7 @@ app.use(cors());
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-route(router, io, formidable);
+route(router, formidable, sharp);
 app.use('/', router);
 
 socket(io);
