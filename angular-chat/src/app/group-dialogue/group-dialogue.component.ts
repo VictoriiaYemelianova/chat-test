@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { MessageUserService } from '../services/message/message-user.service';
 import { IServerModel, IMessage } from '../data-interface';
 import { UserService } from '../services/user/user.service';
@@ -10,8 +10,9 @@ import { faDownload, faHamburger, faSignOutAlt } from '@fortawesome/free-solid-s
 @Component({
   selector: 'app-group-dialogue',
   templateUrl: './group-dialogue.component.html',
-  styleUrls: ['./group-dialogue.component.scss']
+  styleUrls: ['./group-dialogue.component.scss'],
 })
+
 export class GroupDialogueComponent implements OnInit {
   public message: string;
   public messages: Array<IMessage>;
@@ -23,8 +24,10 @@ export class GroupDialogueComponent implements OnInit {
   public upload = faDownload;
   public logout = faSignOutAlt;
   public humburger = faHamburger;
+  public sizeMonitor = false;
 
   public innerWidth: any;
+  public innerHeight: any;
 
   constructor(
     private messageService: MessageUserService,
@@ -36,7 +39,10 @@ export class GroupDialogueComponent implements OnInit {
 
   ngOnInit(): void {
     this.innerWidth = window.innerWidth;
-    console.log(this.innerWidth)
+    this.innerHeight = window.innerHeight;
+    if (this.innerWidth < 600) {
+      this.sizeMonitor = true;
+    }
 
     this.userName = this.userService.currentUserToken.user.login;
     this.userId = this.userService.currentUserToken.user.id;
@@ -56,7 +62,8 @@ export class GroupDialogueComponent implements OnInit {
     this.socketService.userNameOnline();
 
     this.socketService.usersOnline.subscribe((res: Array<string>) => {
-      this.usersOnlineList = res;
+      console.log(this.usersOnlineList )
+      // this.usersOnlineList = res;
     });
   }
 
@@ -89,10 +96,6 @@ export class GroupDialogueComponent implements OnInit {
     }
     // this.messageService.createFile(this.message).subscribe(res => console.log(res));
     // this.messageService.addContentToCreatedFile(this.message).subscribe(res => console.log(res));
-  }
-
-  clickOnlineUser() {
-    console.log('burger')
   }
 
   logOut() {

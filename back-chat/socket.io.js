@@ -5,16 +5,16 @@ module.exports = function (io) {
   io.on('connection', socket => {
     console.log("connection")
 
-    socket.on('onlineUser', (data) => {
-      socket.user = data;
-      for (var a in io.sockets.connected) {
-        if(io.sockets.connected[a].user !== undefined ) {
-          usersArray.push(io.sockets.connected[a].user);
-        }
-      }
+    // socket.on('onlineUser', (data) => {
+    //   socket.user = data;
+    //   for (var a in io.sockets.connected) {
+    //     if(io.sockets.connected[a].user !== undefined ) {
+    //       usersArray.push(io.sockets.connected[a].user);
+    //     }
+    //   }
 
-      io.emit("resUserOnline", usersArray)
-    })
+    //   io.emit("resUserOnline", usersArray)
+    // })
 
     socket.on('addMessage', async req => {
       try {

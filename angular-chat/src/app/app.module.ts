@@ -17,6 +17,10 @@ import { ChatPageComponent } from './chat-page/chat-page.component';
 import { ChangeColorDirective } from './directive/change-color.directive';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MenuPanelComponent } from './menu-panel/menu-panel.component';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AdminMessageComponent } from './admin-message/admin-message.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
 
@@ -28,7 +32,9 @@ const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
     FirstPageComponent,
     GroupDialogueComponent,
     ChatPageComponent,
-    ChangeColorDirective
+    ChangeColorDirective,
+    MenuPanelComponent,
+    AdminMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +43,8 @@ const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
     HttpClientModule,
     FormsModule,
     SocketIoModule.forRoot(config),
-    FontAwesomeModule
+    FontAwesomeModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

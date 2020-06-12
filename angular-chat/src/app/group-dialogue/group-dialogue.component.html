@@ -15,10 +15,15 @@
 
     <div class="dialogue-content">
       <div class="head-dialogue">
-        <fa-icon [icon]="humburger" class="humburger-icon" (click)="clickOnlineUser()"></fa-icon>
+        <app-menu-panel
+          *ngIf="sizeMonitor"
+          (onLogout)="logOut()"
+          [height]="innerHeight"
+          >
+        </app-menu-panel>
+
         <span class="group-chat">GROUP CHAT</span>
         <span class="logout" (click)="logOut()">LOGOUT</span>
-        <fa-icon [icon]="logout" class="logout-icon" (click)="logOut()"></fa-icon>
       </div>
 
       <div class="message-content">
@@ -42,19 +47,21 @@
         </div>
 
         <div class="dialogue-message">
-          <div class="info-oval user-name" id="user-name">
-            {{ userName }}
+          <app-admin-message></app-admin-message>
+
+          <div class="message-string">
+            <label for="file-loader" class="label">
+              <fa-icon [icon]="upload" class="upload-icon"></fa-icon>
+            </label>
+            <input type="file" id="file-loader" (change)="onSelectedFile($event)">
+            <input type="text" id="input" [(ngModel)]="message" (keydown.enter)="onSend()">
           </div>
-          <label for="file-loader" class="label">
-            <fa-icon [icon]="upload" class="upload-icon"></fa-icon>
-          </label>
-          <input type="file" id="file-loader" (change)="onSelectedFile($event)">
-          <input type="text" id="input" [(ngModel)]="message" (keydown.enter)="onSend()">
+
           <button type="submit" class="info-oval" (click)="onSend()"
             [disabled]="!message && !selectedFile">send</button>
         </div>
       </div>
+
     </div>
   </div>
-
 </div>

@@ -3,20 +3,18 @@
 }
 
 .main {
+  width: 100%;
+  height: 100%;
+}
+
+.main-content {
   width: 80%;
   height: 100%;
-  // min-height: 1000px;
   margin: 0 auto;
   background-color: #F8F8FF;
   border-right: 1px solid #DCDCDC;
   border-left: 1px solid #DCDCDC;
-}
-
-.main-content {
-  width: 100%;
-  height: 100%;
   display: flex;
-
 }
 
 .online-users {
@@ -24,12 +22,13 @@
   border-right: 1px solid #DCDCDC;
 
   .head-dialogue {
-    height: 5%;
+    height: 40px;
     background-color: #B0C4DE;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 20px;
+    position: relative;
   }
 
   .online-users-list {
@@ -51,7 +50,7 @@
   width: 70%;
 
   .head-dialogue {
-    height: 5%;
+    height: 40px;
     background-color: #B0C4DE;
     display: flex;
     align-items: center;
@@ -88,7 +87,7 @@
     justify-content: flex-end;
 
     .dialogue {
-      height: 89%;
+      height: calc(100% - 85px);;
       padding: 1% 5%;
       overflow: hidden;
       border-bottom: 1px solid #DCDCDC;
@@ -146,10 +145,9 @@
     }
   
     .dialogue-message {
-      height: 11%;
+      height: 85px;
       display: flex;
       align-items: center;
-      justify-content: space-around;
 
       .user-name {
         width: 50px;
@@ -158,6 +156,12 @@
         justify-content: center;
         border-radius: 25px;
         background-color: #B0C4DE;
+      }
+
+      .message-string {
+        flex: 1;
+        display: flex;
+        align-items: center;
       }
 
       .info-oval {
@@ -172,6 +176,11 @@
         background-color: #B0C4DE;
         font-size: 14px;
         font-weight: bold;
+        margin-left: 10px;
+        margin-right: 10px;
+        outline: none;
+        cursor: pointer;
+        border: none;
       }
 
       .label {
@@ -194,7 +203,7 @@
       }
       
       #input {
-        width: 350px;
+        width: 250px;
         min-width: 30px;
         height: 30px;
         padding: 0 10px;
@@ -203,20 +212,31 @@
         border-bottom: 1px solid #DCDCDC;
         outline: none;
       }
-
-      button {
-        margin-left: 10px;
-        margin-right: 10px;
-        outline: none;
-        cursor: pointer;
-      }
     }
   }
 
 }
 
 @media only screen and (max-width: 600px) {
+  .main-content {
+    position: relative;
+  }
+
+  .main {
+    width: 100%;
+    max-width: 600px;
+    margin: 0;
+  }
+
+  .main-content {
+    width: 100%;
+  }
+  
   .online-users {
+    display: none;
+  }
+
+  .logout {
     display: none;
   }
 
@@ -224,6 +244,8 @@
     width: 100%;
 
     .head-dialogue {
+      padding: 0;
+
       .humburger-icon {
         display: flex;
       }

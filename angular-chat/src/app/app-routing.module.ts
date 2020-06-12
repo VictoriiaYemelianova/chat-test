@@ -5,12 +5,14 @@ import { LogUserComponent } from './log-user/log-user.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { GroupDialogueComponent } from './group-dialogue/group-dialogue.component';
 import { UserGuard } from './Guard/user.guard';
+import { ChatPageComponent } from './chat-page/chat-page.component';
 
 
 const routes: Routes = [
   { path: 'main-page', component: FirstPageComponent },
   { path: 'login', component: LogUserComponent },
   { path: 'create-user', component: CreateUserComponent },
+  { path: 'settings', component: ChatPageComponent },
   { path: 'group-dialogue', component: GroupDialogueComponent, canActivate: [UserGuard] },
   { path: '', redirectTo: '/main-page', pathMatch: 'full' }
 ];

@@ -1,0 +1,17 @@
+<div class="menu-page">
+  <div class="icon-menu" (click)="onHumburger()">
+    <fa-icon [icon]="humburger" class="humburger-icon"></fa-icon>
+  </div>
+
+  <div class="menu-content"
+    [ngClass]="humburgerClick ? 'menu-content-show' : 'menu-content-hidden'"
+    [ngStyle]="{'height.px': height}">
+    <div class="close-btn" (click)="closeMenu()">x</div>
+
+    <div class="menu-block">
+      <div class="menu-str"> <a routerLink="settings">settings</a></div>
+      <div class="menu-str"> <a routerLink="group-dialogue">group chat</a> </div>
+      <div class="menu-str" (click)="logOut()"> <a href="">log out</a> </div>
+    </div>
+  </div>
+</div>
