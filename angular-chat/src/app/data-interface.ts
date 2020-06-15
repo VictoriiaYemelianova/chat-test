@@ -22,6 +22,7 @@ export interface IMessage {
   userLogin: string;
   idUser: number;
   path?: string;
+  room: number;
   createAt: string;
   updateAt: string;
 }
