@@ -1,7 +1,21 @@
 <div class="main-conteiner">
-  <div class="icon-content">
-    Admin chat
+  <div class="icon-content" (click)="openChat()">
+    <span *ngIf="!chatOpened">Admin chat</span>
+    <span *ngIf="chatOpened">Close</span>
   </div>
 
-  <div class="message-content"></div>
+  <div class="message-content" *ngIf="chatOpened"
+  [ngStyle]="{'top.px': positionEl}">
+    <div class="messages">
+      <div class="message-scrole-content">
+        <div class="message"></div>
+      </div>
+    </div>
+
+    <div class="write-message-content">
+      <input type="text" id="message">
+    </div>
+  </div>
 </div>
+<!-- [ngStyle]="{'top.px': positionEl}" -->
+<!-- [style.top.px]="getPosition()" -->
