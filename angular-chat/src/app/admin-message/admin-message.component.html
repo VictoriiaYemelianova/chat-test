@@ -1,19 +1,23 @@
 <div class="main-conteiner">
-  <div class="icon-content" (click)="openChat()">
+  <div class="icon-content" (click)="openCloseChat()">
     <span *ngIf="!chatOpened">Admin chat</span>
     <span *ngIf="chatOpened">Close</span>
   </div>
 
-  <div class="message-content" *ngIf="chatOpened"
-  [ngStyle]="{'top.px': positionEl}">
-    <div class="messages">
+  <div class="message-content" 
+    *ngIf="chatOpened"
+    [ngStyle]="{'top.px': positionEl}">
+    <div class="messages" *ngFor="let message of messages">
       <div class="message-scrole-content">
-        <div class="message"></div>
+        <div class="message">{{message.message}}</div>
       </div>
     </div>
 
     <div class="write-message-content">
-      <input type="text" id="message">
+      <input type="text" id="message" [(ngModel)]="message">
+      <button class="arrow-send" (click)="sendMessage()" [disabled]="!message"> 
+        <fa-icon [icon]="arrowRight" class="upload-icon"></fa-icon>
+      </button>
     </div>
   </div>
 </div>

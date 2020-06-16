@@ -18,7 +18,7 @@ export class GroupDialogueComponent implements OnInit {
   public messages: Array<IMessage>;
   public userName: string;
   public userId: any;
-  public usersOnlineList: Array<string>;
+  public usersOnlineList = [];
   public selectedFile: File;
   public imgSrc: IMessage;
   public upload = faDownload;
@@ -59,11 +59,10 @@ export class GroupDialogueComponent implements OnInit {
       }
     });
 
-    this.socketService.userNameOnline();
+    this.socketService.userNameOnline(null);
 
-    this.socketService.usersOnline.subscribe((res: Array<string>) => {
-      console.log(this.usersOnlineList )
-      // this.usersOnlineList = res;
+    this.socketService.usersOnline.subscribe((res: any) => {
+      this.usersOnlineList.push(res);
     });
   }
 

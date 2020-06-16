@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { IUser, IServerModel, IUserToken } from 'src/app/data-interface';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { url } from 'src/app/constants';
 import { map } from 'rxjs/operators';
 
@@ -10,6 +10,8 @@ import { map } from 'rxjs/operators';
 })
 export class UserService {
   public currentUserToken: IUserToken;
+  public subject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
+
 
   constructor( private http: HttpClient ) {
     this.getItemLocalStorage('user');
@@ -27,10 +29,10 @@ export class UserService {
     return this.http.post(`${url}/login`, user).pipe(
       map((res: IServerModel) => {
         if (res.success) {
+          this.subject.next(true);
           this.currentUserToken = res.items[0] as IUserToken;
           localStorage.setItem('user', JSON.stringify(this.currentUserToken));
         }
-
         return res;
       })
     );
@@ -53,6 +55,7 @@ export class UserService {
   }
 
   logOut() {
+    this.subject.next(false);
     localStorage.clear();
   }
 }
