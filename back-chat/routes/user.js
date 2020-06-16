@@ -50,12 +50,19 @@ module.exports = function (router) {
       });
 
       if (!user) {
+        const role = await models.Role.findOne({
+          where: {
+            role: req.body.role
+          }
+        });
+
         const userModel = {
           email: req.body.email,
           login: req.body.login,
           password: req.body.password,
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
+          role: role.id
         };
 
         const newUser = await models.User.create(userModel);
@@ -68,6 +75,8 @@ module.exports = function (router) {
           { expiresIn: '24h' } // expires in 24 hours
           );
 
+          newUser.role = role.role;
+          
           let currentUser = {
             user: newUser,
             token: token

@@ -27,6 +27,8 @@ export class CreateUserComponent implements OnInit {
 
   onCreate() {
     const formValue = this.createForm.value;
+    formValue.role = 'user';
+
     this.userService.createUser(formValue)
     .subscribe((res: IServerModel) => {
       if (res.success) {

@@ -43,6 +43,7 @@ export class UserService {
       map((res: IServerModel) => {
         if (res.success) {
           this.currentUserToken = res.items[0] as IUserToken;
+          localStorage.setItem('user', JSON.stringify(this.currentUserToken));
         }
 
         return res;
