@@ -9,12 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     Message.belongsTo(models.User, {
       foreignKey: 'idUser',
       allowNull: false
-    });
-
-    Message.belongsTo(models.Rooms, {
-      foreignKey: 'roomId',
-      allowNull: false
-    })    
+    });  
   };
   return Message;
 };

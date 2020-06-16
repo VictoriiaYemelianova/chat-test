@@ -2,11 +2,11 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.addConstraint('Messages', ['roomId'], {
+    return queryInterface.addConstraint('Rooms', ['userId'], {
       type: 'foreign key',
-      name: 'custom_fkey_rooms',
+      name: 'custom_fkey_userId',
       references: { //Required field
-        table: 'Rooms',
+        table: 'Users',
         field: 'id'
       },
       onDelete: 'cascade',
@@ -17,6 +17,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.removeConstraint('Messages', 'custom_fkey_rooms')
+    return queryInterface.removeConstraint('Messages', 'custom_fkey_userId')
   }
 };

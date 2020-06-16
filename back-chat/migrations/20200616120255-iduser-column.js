@@ -3,14 +3,14 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.addColumn(
-      'Messages',
-      'roomId',
+      'Rooms',
+      'userId',
       Sequelize.INTEGER
 
     )
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.removeColumn('Messages', 'roomId')
+    return queryInterface.removeColumn('Rooms', 'userId')
   }
 };

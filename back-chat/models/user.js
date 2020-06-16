@@ -9,6 +9,11 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Message, {
       foreignKey: 'idUser',
       allowNull: false
+    }),
+
+    User.hasMany(models.Rooms, {
+      foreignKey: 'userId',
+      allowNull: false
     })
   };
   return User;
