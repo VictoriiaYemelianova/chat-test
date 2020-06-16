@@ -86,6 +86,31 @@ module.exports = function (router) {
     }
   });
 
+  router.post('/create-role', async (req, res, next) => {
+    try {
+      const role = await models.Role.findOne({
+        where: {
+          role: req.body.role
+        }
+      });
+
+      if (!role) {
+        const roleModel = {
+          role: req.body.role,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        };
+
+        const newRole = await models.Role.create(roleModel);
+        res.items = newRole;
+        next();
+      }
+    } catch(err) {
+      res.message = err.message;
+      next();
+    }
+  })
+
   router.delete('/user-delete/:id', async (req, res, next) => {
     try {
       const deleteUser = await models.User.destroy({
