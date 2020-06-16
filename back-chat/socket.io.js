@@ -3,18 +3,34 @@ let usersArray = [];
 
 module.exports = function (io) {
   io.on('connection', socket => {
-    console.log("connection")
+    console.log("connection", socket.id)
 
-    // socket.on('onlineUser', (data) => {
-    //   socket.user = data;
-    //   for (var a in io.sockets.connected) {
-    //     if(io.sockets.connected[a].user !== undefined ) {
-    //       usersArray.push(io.sockets.connected[a].user);
-    //     }
-    //   }
+    socket.on('onlineUser', (userData) => {
+      socket.username = userData.userName;
+      socket.room = userData.room;
+      socket.join(socket.room);
+      socket.broadcast.to(socket.room).emit('resUserOnline', userData.userName);
 
-    //   io.emit("resUserOnline", usersArray)
-    // })
+      // for (var a in io.sockets.connected) {
+      //   if(io.sockets.connected[a].user !== undefined ) {
+      //     usersArray.push(io.sockets.connected[a].user);
+      //   }
+      // }
+
+      // io.emit("resUserOnline", usersArray)
+    })
+
+    socket.on('switchRoom', (newRoomName) => {
+      if (!socket.room) {
+        isocket.leave('/');
+      } else {
+        socket.leave(socket.room);
+      }
+
+      socket.join(newRoomName);
+      socket.room = newRoomName;
+    });
+
 
     socket.on('addMessage', async req => {
       try {
@@ -48,10 +64,13 @@ module.exports = function (io) {
         }
 
         const response = modelResponse(newMessage);
-        io.emit("recieveMessage", response);
+        console.log(io.sockets);
+        // io.emit("recieveMessage", response);
+        io.sockets["in"](socket.room).emit('recieveMessage', response);
       } catch (err) {
         const response = modelResponse(err.message);
-        io.emit("recieveMessage", response);
+        // io.emit("recieveMessage", response);
+        io.sockets["in"](socket.room).emit('recieveMessage', response);
       }
     });
 
