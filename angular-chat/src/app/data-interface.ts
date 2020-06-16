@@ -14,6 +14,7 @@ export interface IUser {
   email: string;
   login: string;
   password: string;
+  role: string;
 }
 
 export interface IMessage {
