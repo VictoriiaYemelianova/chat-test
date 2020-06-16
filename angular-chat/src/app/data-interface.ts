@@ -22,7 +22,6 @@ export interface IMessage {
   userLogin: string;
   idUser: number;
   path?: string;
-  room: number;
   createAt: string;
   updateAt: string;
 }
@@ -34,4 +33,9 @@ export interface IUserToken {
 
 export interface IUserOnline {
   users: Array<string>;
+}
+
+export interface IUserData {
+  userName: string;
+  room: string;
 }
