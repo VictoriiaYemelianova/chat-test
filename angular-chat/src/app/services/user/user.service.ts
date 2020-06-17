@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { IUser, IServerModel, IUserToken } from 'src/app/data-interface';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { url } from 'src/app/constants';
 import { map } from 'rxjs/operators';
 
@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class UserService {
   public currentUserToken: IUserToken;
-  public subject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
+  public subject: Subject<boolean> = new Subject<boolean>();
 
 
   constructor( private http: HttpClient ) {
