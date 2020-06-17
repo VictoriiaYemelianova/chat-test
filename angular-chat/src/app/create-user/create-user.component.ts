@@ -32,7 +32,7 @@ export class CreateUserComponent implements OnInit {
     this.userService.createUser(formValue)
     .subscribe((res: IServerModel) => {
       if (res.success) {
-        this.router.navigate(['/group-dialogue']);
+        this.router.navigate(['/chat-list']);
       } else {
         this.errorMessage = res.message;
       }

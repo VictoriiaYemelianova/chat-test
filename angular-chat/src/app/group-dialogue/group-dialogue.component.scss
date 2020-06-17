@@ -57,8 +57,19 @@
     justify-content: flex-end;
     padding: 0 20px;
 
-    .humburger-icon {
-      display: none;
+    .back {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+
+      .arrow-icon {
+        cursor: pointer;
+      }
+    }
+
+    .back:hover {
+      font-size: 20px;
     }
   
     span {
@@ -80,13 +91,10 @@
     }
   }
   
-  .message-content {
-    height: 95%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+  .chats-content {
+    height: 100%;
 
-    .dialogue {
+    .chats {
       height: calc(100% - 85px);;
       padding: 1% 5%;
       overflow: hidden;
@@ -102,43 +110,26 @@
         overflow: scroll;
         padding: 1% 5%;
 
-        .left-message,
-        .right-message {
+        .content-list {
           width: 100%;
           display: flex;
           flex-direction: column;
           margin: 5px 0;
-  
-          .small {
-            font-size: 11px;
-          }
-  
-          .name-user {
-            color: chocolate;
-          }
-        }
 
-        .right-message {
-          align-items: flex-end;
-        }
-
-        .message-right,
-        .message-left {
-          width: calc(100% - 10px);
-          min-height: 35px;
-          display: flex;
-          align-items: center;
-          background-color: #DCDCDC;
-          padding: 0 5px;
-  
-          img {
-            max-width: 150px;
-            max-height: 150px;
+          .chat-name {
+            width: calc(100% - 10px);
+            min-height: 35px;
+            display: flex;
+            align-items: center;
+            background-color: #DCDCDC;
+            padding: 0 5px;
+            cursor: pointer;
+            border: 1px solid transparent;
           }
-        }
 
-        .message-right {
-          justify-content: flex-end;
+          .chat-name:hover {
+            border: 1px solid #ffffff;
+          }
         }
       }
 

@@ -35,7 +35,7 @@ export class LogUserComponent implements OnInit {
     .subscribe((res: IServerModel) => {
       if (res.success) {
         this.socketService.userNameOnline(null);
-        this.router.navigate(['/group-dialogue']);
+        this.router.navigate(['/chat-list']);
       } else {
         this.errorMessage = res.message;
       }

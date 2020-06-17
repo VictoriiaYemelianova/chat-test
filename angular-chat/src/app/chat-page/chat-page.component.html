@@ -1,1 +1,35 @@
-<p>chat-page works!</p>
+<div class="message-content">
+  <div class="dialogue">
+
+    <div class="test-div">
+      <div *ngFor="let message of messages"
+        [className]="+message.idUser === userId ? 'right-message ' : 'left-message'">
+        <span class="small name-user"> {{message.userLogin}} </span>
+        <div
+          [className]="+message.idUser === userId ? 'message-right ' : 'message-left'"
+          [appChangeColor]="message.userLogin">
+          <span class="message-font">{{ message.message }}</span>
+          <img *ngIf="message.path && innerWidth > '601'" [src]="'http://localhost:3000/api/get-img/' + message.id + '/' + innerWidth" alt="chash-img">
+          <img *ngIf="message.path && innerWidth < '600'" [src]="'http://localhost:3000/api/get-img/' + message.id + '/' + innerWidth" alt="chash-img">
+        </div>
+        <span class="small"> {{ message.createAt |  date: 'short'}} </span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="dialogue-message">
+    <app-admin-message></app-admin-message>
+
+    <div class="message-string">
+      <label for="file-loader" class="label">
+        <fa-icon [icon]="upload" class="upload-icon"></fa-icon>
+      </label>
+      <input type="file" id="file-loader" (change)="onSelectedFile($event)">
+      <input type="text" id="input" [(ngModel)]="message" (keydown.enter)="onSend()">
+    </div>
+
+    <button type="submit" class="info-oval" (click)="onSend()"
+      [disabled]="!message && !selectedFile">send</button>
+  </div>
+</div>

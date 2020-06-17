@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'login', component: LogUserComponent },
   { path: 'create-user', component: CreateUserComponent },
   { path: 'settings', component: ChatPageComponent },
-  { path: 'group-dialogue', component: GroupDialogueComponent, canActivate: [UserGuard] },
+  { path: 'chat-list', component: GroupDialogueComponent, canActivate: [UserGuard] },
   { path: '', redirectTo: '/main-page', pathMatch: 'full' }
 ];
 
