@@ -20,6 +20,11 @@ module.exports = (sequelize, DataTypes) => {
     User.belongsTo(models.Role, {
       foreignKey: 'role',
       allowNull: false
+    }),
+
+    User.hasMany(models.Participator, {
+      foreignKey: 'participator',
+      allowNull: false
     })
   };
   return User;
