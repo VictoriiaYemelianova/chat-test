@@ -46,7 +46,7 @@ export class ChatPageComponent implements OnInit {
 
     this.userId = this.userService.currentUserToken.user.id;
 
-    this.messageService.getAllMessage().subscribe((res: IServerModel) => {
+    this.messageService.getAllMessage(this.roomId).subscribe((res: IServerModel) => {
       if (res.success) {
         this.messages = res.items as IMessage[];
       }

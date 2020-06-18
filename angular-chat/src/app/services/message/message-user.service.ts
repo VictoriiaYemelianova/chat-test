@@ -21,8 +21,8 @@ export class MessageUserService {
     this.token = this.userSevice.currentUserToken.token;
   }
 
-  getAllMessage() {
-    return this.http.get(`${apiUrl}/message`);
+  getAllMessage(id) {
+    return this.http.get(`${apiUrl}/message/${id}`);
   }
 
   addNewMessage(message) {

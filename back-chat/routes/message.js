@@ -2,12 +2,15 @@ const models = require('../models/index');
 const fs = require('fs')
 
 module.exports = function (router, formidable, sharp) {
-  router.get('/api/message', async (req, res, next) => {
+  router.get('/api/message/:id', async (req, res, next) => {
     try {
       const messageAll = await models.Message.findAll({
-        include: [{
+        include: {
           model: models.User
-        }]
+        },
+        where: {
+          roomId: req.params.id
+        }
       });
 
       if (messageAll.length === 0) {
