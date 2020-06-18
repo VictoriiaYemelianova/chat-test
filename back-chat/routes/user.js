@@ -144,7 +144,7 @@ module.exports = function (router) {
           where: {
             role: 'user'
           }
-        },
+        }
       });
       
       userArr = users.map(el => {

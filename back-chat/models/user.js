@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     }),
 
     User.hasMany(models.Rooms, {
-      foreignKey: 'userId',
+      foreignKey: 'creator',
       allowNull: false
     }),
 

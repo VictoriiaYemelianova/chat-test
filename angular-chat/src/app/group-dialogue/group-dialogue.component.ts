@@ -6,7 +6,8 @@ import { Router } from '@angular/router';
 import { SocketService } from '../services/socket/socket.service';
 import { HttpClient } from '@angular/common/http';
 import { faSignOutAlt, faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { IUser, IServerModel } from '../data-interface';
+import { IUser, IServerModel, IUserRoom } from '../data-interface';
+import { ChatRoomService } from '../services/chat-room/chat-room.service';
 
 @Component({
   selector: 'app-group-dialogue',
@@ -19,6 +20,8 @@ export class GroupDialogueComponent implements OnInit {
   public userId: any;
   // public usersOnlineList = [];
   public users: Array<IUser>;
+  public chats: Array<IUserRoom>;
+
   public logout = faSignOutAlt;
   public arrowBack = faArrowLeft;
   public addChat = faPlus;
@@ -29,11 +32,13 @@ export class GroupDialogueComponent implements OnInit {
   public innerHeight: any;
 
   public click = false;
+  public roomId: number;
 
   constructor(
     // private messageService: MessageUserService,
     private userService: UserService,
     private router: Router,
+    private chatService: ChatRoomService,
     private socketService: SocketService,
     private http: HttpClient
   ) { }
@@ -54,6 +59,12 @@ export class GroupDialogueComponent implements OnInit {
       }
     });
 
+    this.chatService.getChats(this.userId).subscribe((res: IServerModel) => {
+      if (res.success) {
+        this.chats = res.items as Array<IUserRoom>;
+      }
+    });
+
     // this.socketService.userNameOnline(null);
 
     // this.socketService.usersOnline.subscribe((res: any) => {
@@ -61,7 +72,8 @@ export class GroupDialogueComponent implements OnInit {
     // });
   }
 
-  openChat(name) {
+  openChat(id) {
+    this.roomId = id;
     this.click = !this.click;
   }
 

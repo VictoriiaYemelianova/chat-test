@@ -15,4 +15,8 @@ export class ChatRoomService {
   createRoom(data: IUserRoom) {
     return this.http.post(`${apiUrl}/create`, data);
   }
+
+  getChats(idUser) {
+    return this.http.get(`${apiUrl}/chats/${idUser}`);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MessageUserService } from '../services/message/message-user.service';
 import { IServerModel, IMessage } from '../data-interface';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
@@ -12,6 +12,8 @@ import { UserService } from '../services/user/user.service';
   styleUrls: ['./chat-page.component.scss']
 })
 export class ChatPageComponent implements OnInit {
+  @Input() roomId: number;
+
   public message: string;
   public messages: Array<IMessage>;
   public userName: string;
@@ -35,6 +37,7 @@ export class ChatPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.roomId)
     this.innerWidth = window.innerWidth;
     this.innerHeight = window.innerHeight;
     if (this.innerWidth < 600) {

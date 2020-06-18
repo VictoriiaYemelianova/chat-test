@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Rooms.associate = function(models) {
     Rooms.belongsTo(models.User, {
-      foreignKey: 'userId',
+      foreignKey: 'creator',
       allowNull: false
     }),
 
