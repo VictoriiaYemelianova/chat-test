@@ -1,6 +1,6 @@
 export interface IServerModel {
   success: boolean;
-  items: Array<IUserToken | IMessage>;
+  items: Array<IUserToken | IMessage | IRoom | IUser>;
   message: string;
 }
 
@@ -39,4 +39,17 @@ export interface IUserOnline {
 export interface IUserData {
   userName: string;
   room: string;
+}
+
+export interface IUserRoom {
+  roomName: string;
+  creatorId: number;
+  operator?: boolean;
+}
+
+export interface IRoom {
+  id: number;
+  roomName: string;
+  creator: string;
+  participator: string;
 }
