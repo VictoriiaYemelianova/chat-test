@@ -31,16 +31,33 @@
     position: relative;
   }
 
-  .online-users-list {
-    width: 100%;
-    max-height: 100%;
-    
-    .user-name {
-      max-width: 100%;
-      min-height: 40px ;
-      display: flex;
-      align-items: center;
-      padding-left: 10px;
+  .user-conteiner {
+    height: 100%;
+
+    .conteiner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      .users {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: scroll;
+  
+        .online-users-list {
+          
+          .user-name {
+            max-width: 100%;
+            min-height: 40px ;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+          }
+        }
+      }
     }
   }
 }
@@ -93,9 +110,11 @@
   
   .chats-content {
     height: 100%;
+    display: flex;
+    flex-direction: column;
 
     .chats {
-      height: calc(100% - 85px);;
+      height: calc(100% - 140px);
       padding: 1% 5%;
       overflow: hidden;
       border-bottom: 1px solid #DCDCDC;
@@ -134,74 +153,34 @@
       }
 
     }
-  
-    .dialogue-message {
-      height: 85px;
+    
+    .create-chat-content {
+      height: 100px;
+      margin: 0 10px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
+      padding: 0 10px;
 
-      .user-name {
-        width: 50px;
-        height: 50px;
-        display: flex;
-        justify-content: center;
-        border-radius: 25px;
-        background-color: #B0C4DE;
-      }
-
-      .message-string {
-        flex: 1;
-        display: flex;
-        align-items: center;
-      }
-
-      .info-oval {
-        width: 70px;
-        height: 50px;
-        min-width: 45px;
-        min-height: 45px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 25px;
-        background-color: #B0C4DE;
-        font-size: 14px;
+      button {
+        height: 60px;
+        width: 110px;
+        color: white;
         font-weight: bold;
-        margin-left: 10px;
-        margin-right: 10px;
+        border-radius: 30px;
+        background-color: green;
         outline: none;
         cursor: pointer;
+        text-transform: uppercase;
         border: none;
-      }
 
-      .label {
-        width: 10px;
-        height: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 10px;
-
-        .upload-icon {
-          color: #B0C4DE;
-          cursor: pointer;
-          border: 1px solid #DCDCDC;
+        .plus {
+          font-size: 18px;
         }
       }
 
-      #file-loader {
-        display: none;
-      }
-      
-      #input {
-        width: 250px;
-        min-width: 30px;
-        height: 30px;
-        padding: 0 10px;
-        border: none;
-        background-color: #F8F8FF;
-        border-bottom: 1px solid #DCDCDC;
-        outline: none;
+      button:hover {
+       background-color: #006400;
       }
     }
   }
@@ -229,31 +208,5 @@
 
   .logout {
     display: none;
-  }
-
-  .dialogue-content {
-    width: 100%;
-
-    .head-dialogue {
-      padding: 0;
-
-      .humburger-icon {
-        display: flex;
-      }
-
-      .logout {
-        display: none;
-      }
-
-      .logout-icon {
-        display: flex;
-      }
-    }
-
-    .dialogue-message {
-      #user-name {
-        display: none;
-      }
-    }
   }
 }

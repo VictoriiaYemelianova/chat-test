@@ -7,9 +7,15 @@
       </div>
       <!-- <app-admin-message></app-admin-message> -->
 
-      <div *ngFor="let user of usersOnlineList" class="online-users-list">
-        <div *ngIf="user !== userName" class="user-name">
-          <span> {{user}} </span>
+      <div class="user-conteiner">
+        <div class="conteiner">
+          <div class="users">
+            <div *ngFor="let user of users" class="online-users-list">
+              <div *ngIf="user.login !== userName" class="user-name">
+                <span> {{user.login}} </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -38,6 +44,17 @@
                 нет чатов
               </div>
             </div>
+          </div>
+        </div>
+
+        <div class="create-chat-content">
+          <button  (click)="onAddChat()">
+            add chat
+           <fa-icon [icon]="addChat" class="plus"></fa-icon>
+          </button>
+
+          <div class="user-name">
+            {{userName}}
           </div>
         </div>
       </div>

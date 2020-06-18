@@ -51,6 +51,10 @@ export class UserService {
     );
   }
 
+  getUsers() {
+    return this.http.get(`${url}/users`);
+  }
+
   deleteUser(id) {
     return this.http.delete(`${url}/user-delete/${id}`);
   }

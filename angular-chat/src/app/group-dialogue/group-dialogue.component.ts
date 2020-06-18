@@ -5,7 +5,8 @@ import { UserService } from '../services/user/user.service';
 import { Router } from '@angular/router';
 import { SocketService } from '../services/socket/socket.service';
 import { HttpClient } from '@angular/common/http';
-import { faSignOutAlt, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt, faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { IUser, IServerModel } from '../data-interface';
 
 @Component({
   selector: 'app-group-dialogue',
@@ -14,16 +15,14 @@ import { faSignOutAlt, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 })
 
 export class GroupDialogueComponent implements OnInit {
-  // public message: string;
-  // public messages: Array<IMessage>;
   public userName: string;
   public userId: any;
-  public usersOnlineList = [];
-  // public selectedFile: File;
-  // public imgSrc: IMessage;
-  // public upload = faDownload;
+  // public usersOnlineList = [];
+  public users: Array<IUser>;
   public logout = faSignOutAlt;
   public arrowBack = faArrowLeft;
+  public addChat = faPlus;
+
   public sizeMonitor = false;
 
   public innerWidth: any;
@@ -49,59 +48,24 @@ export class GroupDialogueComponent implements OnInit {
     this.userName = this.userService.currentUserToken.user.login;
     this.userId = this.userService.currentUserToken.user.id;
 
-    // this.messageService.getAllMessage().subscribe((res: IServerModel) => {
-    //   if (res.success) {
-    //     this.messages = res.items as IMessage[];
-    //   }
-    // });
-
-    // this.messageService.currentMessage.subscribe((res: IServerModel) => {
-    //   if (res.success) {
-    //     this.messages.push(res.items[0] as IMessage);
-    //   }
-    // });
-
-    this.socketService.userNameOnline(null);
-
-    this.socketService.usersOnline.subscribe((res: any) => {
-      this.usersOnlineList.push(res);
+    this.userService.getUsers().subscribe((res: IServerModel) => {
+      if (res.success) {
+        this.users = res.items as IUser[];
+      }
     });
+
+    // this.socketService.userNameOnline(null);
+
+    // this.socketService.usersOnline.subscribe((res: any) => {
+    //   this.usersOnlineList.push(res);
+    // });
   }
 
   openChat(name) {
     this.click = !this.click;
   }
 
-  // onSelectedFile(event) {
-  //   this.selectedFile = event.target.files[0] as File;
-  // }
-
-  // onSend() {
-  //   const fd = new FormData();
-  //   const newMessageObj = {
-  //     message: null,
-  //     idUser: this.userId,
-  //     imgPath: null
-  //   };
-
-  //   if (this.message) {
-  //     newMessageObj.message = this.message;
-  //     this.messageService.addNewMessage(newMessageObj);
-  //   }
-
-  //   if (this.selectedFile) {
-  //     fd.append('image', this.selectedFile, this.selectedFile.name);
-
-  //     newMessageObj.message = fd;
-
-  //     this.messageService.addFile(fd).subscribe((res: any) => {
-  //       newMessageObj.imgPath = res.data;
-  //       this.messageService.addNewMessage(newMessageObj);
-  //     });
-  //   }
-  //   // this.messageService.createFile(this.message).subscribe(res => console.log(res));
-  //   // this.messageService.addContentToCreatedFile(this.message).subscribe(res => console.log(res));
-  // }
+  onAddChat() {}
 
   logOut() {
     this.userService.logOut();

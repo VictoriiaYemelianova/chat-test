@@ -95,7 +95,7 @@ module.exports = function (router) {
     }
   });
 
-  router.post('/create-role', async (req, res, next) => {
+  router.post('/create-role', async (req, res, next) => { //для админа
     try {
       const role = await models.Role.findOne({
         where: {
@@ -131,6 +131,37 @@ module.exports = function (router) {
       res.items = deleteUser;
       next();
     } catch (err) {
+      res.message = err.message;
+      next();
+    }
+  })
+
+  router.get('/users', async (req, res, next) => {
+    try {
+      const users = await models.User.findAll({
+        include: {
+          model: models.Role,
+          where: {
+            role: 'user'
+          }
+        },
+      });
+      
+      userArr = users.map(el => {
+        const usersRes = {
+          id: el.id,
+          email: el.email,
+          login: el.login,
+          password: el.password,
+          role: el.Role.role
+        };
+
+        return usersRes;
+      });
+
+      res.items = userArr;
+      next();
+    } catch(err) {
       res.message = err.message;
       next();
     }
