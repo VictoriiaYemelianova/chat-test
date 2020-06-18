@@ -65,12 +65,12 @@ module.exports = function (io) {
 
         const response = modelResponse(newMessage);
         console.log(io.sockets);
-        // io.emit("recieveMessage", response);
-        io.sockets["in"](socket.room).emit('recieveMessage', response);
+        io.emit("recieveMessage", response);
+        // io.sockets["in"](socket.room).emit('recieveMessage', response);
       } catch (err) {
         const response = modelResponse(err.message);
-        // io.emit("recieveMessage", response);
-        io.sockets["in"](socket.room).emit('recieveMessage', response);
+        io.emit("recieveMessage", response);
+        // io.sockets["in"](socket.room).emit('recieveMessage', response);
       }
     });
 
