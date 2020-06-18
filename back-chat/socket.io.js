@@ -3,7 +3,7 @@ let usersArray = [];
 
 module.exports = function (io) {
   io.on('connection', socket => {
-    console.log("connection", socket.id)
+    console.log("connection")
 
     socket.on('onlineUser', (userData) => {
       socket.username = userData.userName;
@@ -22,7 +22,7 @@ module.exports = function (io) {
 
     socket.on('switchRoom', (newRoomName) => {
       if (!socket.room) {
-        isocket.leave('/');
+        socket.leave('/');
       } else {
         socket.leave(socket.room);
       }
@@ -39,7 +39,8 @@ module.exports = function (io) {
           idUser: req.idUser,
           createdAt: new Date(),
           updatedAt: new Date(),
-          path: ''
+          path: '',
+          roomId: req.roomId
         }
 
         if (req.imgPath) {

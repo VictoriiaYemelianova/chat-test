@@ -68,7 +68,8 @@ export class ChatPageComponent implements OnInit {
     const newMessageObj = {
       message: null,
       idUser: this.userId,
-      imgPath: null
+      imgPath: null,
+      roomId: this.roomId
     };
 
     if (this.message) {

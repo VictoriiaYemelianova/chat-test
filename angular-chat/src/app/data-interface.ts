@@ -42,13 +42,13 @@ export interface IUserData {
 }
 
 export interface IUserRoom {
-  roomId: number;
+  roomId?: number;
   roomName: string;
+  creatorId?: number;
 }
 
 export interface IRoom {
   id: number;
-  roomName: string;
-  creator: string;
-  participator: string;
+  idRoom: number;
+  participator: number;
 }

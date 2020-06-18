@@ -7,9 +7,23 @@
   <div class="message-content" 
     *ngIf="chatOpened"
     [ngStyle]="{'top.px': positionEl}">
-    <div class="messages" *ngFor="let message of messages">
-      <div class="message-scrole-content">
-        <div class="message">{{message.message}}</div>
+    <div class="messages-conteiner">
+      <div class="messages">
+        <div class="message-scrole-content">
+          
+          <div *ngFor="let message of messages"
+            [className]="+message.idUser === userId ? 'right-message ' : 'left-message'">
+            <span class="small name-user"> {{message.userLogin}} </span>
+            <div [className]="+message.idUser === userId ? 'message-right ' : 'message-left'">
+              {{message.message}}
+            </div>
+            <span class="small"> {{ message.createAt |  date: 'short'}} </span>
+          </div>
+          
+          <div class="message" *ngIf="!messages">
+            No messages
+          </div>
+        </div>
       </div>
     </div>
 
