@@ -87,6 +87,8 @@ export class ChatPageComponent implements OnInit {
         this.messageService.addNewMessage(newMessageObj);
       });
     }
+
+    this.message = '';
     // this.messageService.createFile(this.message).subscribe(res => console.log(res));
     // this.messageService.addContentToCreatedFile(this.message).subscribe(res => console.log(res));
   }

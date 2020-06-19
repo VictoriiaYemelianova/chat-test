@@ -10,7 +10,7 @@ export interface IUserToken {
 }
 
 export interface IUser {
-  id?: string;
+  id?: number;
   email: string;
   login: string;
   password: string;
@@ -42,13 +42,19 @@ export interface IUserData {
 }
 
 export interface IUserRoom {
-  roomId?: number;
+  id?: number;
   roomName: string;
-  creatorId?: number;
+  creator?: number;
 }
 
 export interface IRoom {
   id: number;
   idRoom: number;
   participator: number;
+}
+
+export interface IChatModel {
+  roomName: string;
+  creatorId: number;
+  participator?: Array<number>;
 }

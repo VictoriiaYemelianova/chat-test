@@ -50,10 +50,22 @@ module.exports = function(router) {
           const arrayUsers = [createNewRoom.creator, operator.id];
           const participatorsArray = await createParticipator(createNewRoom.id, arrayUsers);
 
-          res.items = participatorsArray;
+          res.items = createNewRoom;
         } else {
           const findChatParticipatorsResp = await findChatParticipators(findRoomResp.id);
-          res.items = findChatParticipatorsResp;
+          res.items = findChatParticipatorsResp.Room;
+        }
+      } else {
+        const findRoomResp = await findRoom(req.body.roomName);
+
+        if (!findRoomResp) {
+          const createNewRoom = await createRoom(req.body.roomName, req.body.creatorId);
+          const arrayUsers = req.body.participator;
+          const participatorsArray = await createParticipator(createNewRoom.id, arrayUsers);
+          res.items = createNewRoom;
+        } else {
+          const findChatParticipatorsResp = await findChatParticipators(findRoomResp.id);
+          res.items = findChatParticipatorsResp.Room;
         }
       };
 

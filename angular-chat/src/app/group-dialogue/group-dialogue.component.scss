@@ -55,7 +55,19 @@
             min-height: 40px ;
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            padding-right: 10px;
             padding-left: 10px;
+
+            .plus {
+              cursor: pointer;
+              padding: 3px;
+              border: 1px solid transparent;
+            }
+
+            .plus:hover {
+              border: 1px solid #B0C4DE;
+            }
           }
         }
       }

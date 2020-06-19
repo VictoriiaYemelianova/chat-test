@@ -6,7 +6,7 @@ import * as socketIo from 'socket.io-client';
 
 import { MessageUserService } from '../services/message/message-user.service';
 import { SocketService } from '../services/socket/socket.service';
-import { IServerModel, IMessage, IRoom } from '../data-interface';
+import { IServerModel, IMessage, IUserRoom } from '../data-interface';
 import { ChatRoomService } from '../services/chat-room/chat-room.service';
 import { ObserveOnMessage } from 'rxjs/internal/operators/observeOn';
 
@@ -23,7 +23,7 @@ export class AdminMessageComponent implements OnInit {
   public arrowRight = faPlay;
   public messages: Array<IMessage> = [];
   public chatName: string;
-  public createdRoom: IRoom;
+  public createdRoom: IUserRoom;
 
   constructor(
     private el: ElementRef,
@@ -65,8 +65,8 @@ export class AdminMessageComponent implements OnInit {
       this.chatService.createRoom(chatModel).subscribe((res: IServerModel) => {
         if (res.success) {
           this.socketService.switchRoom(this.chatName);
-          this.createdRoom = res.items[0] as IRoom;
-          this.messageService.getAllMessage(this.createdRoom.idRoom).subscribe((resp: IServerModel) => {
+          this.createdRoom = res.items[0] as IUserRoom;
+          this.messageService.getAllMessage(this.createdRoom.id).subscribe((resp: IServerModel) => {
             if (resp.success) {
               this.messages = resp.items as IMessage[];
             }
@@ -106,5 +106,6 @@ export class AdminMessageComponent implements OnInit {
     };
 
     this.messageService.addNewMessage(newMessageObj);
+    this.message = '';
   }
 }
