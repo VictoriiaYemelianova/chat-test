@@ -24,13 +24,9 @@
     <div class="dialogue-content">
       <div class="head-dialogue">
         <div class="back" (click)="openChat(null)">
-          <fa-icon [icon]="arrowBack" class="arrow-icon"  *ngIf="click"></fa-icon>
+          <fa-icon [icon]="arrowBack" class="arrow-icon" *ngIf="click"></fa-icon>
         </div>
-        <app-menu-panel
-          *ngIf="sizeMonitor"
-          (onLogout)="logOut()"
-          [height]="innerHeight"
-          >
+        <app-menu-panel *ngIf="sizeMonitor" (onLogout)="logOut()" [height]="innerHeight">
         </app-menu-panel>
 
         <span class="group-chat">CHATS LIST</span>
@@ -49,9 +45,9 @@
         </div>
 
         <div class="create-chat-content">
-          <button  (click)="onAddChat(null)">
+          <button (click)="onOpenCloseModal()">
             add chat
-           <fa-icon [icon]="addChat" class="plus"></fa-icon>
+            <fa-icon [icon]="addChat" class="plus"></fa-icon>
           </button>
 
           <div class="user-name">
@@ -65,3 +61,37 @@
     </div>
   </div>
 </div>
+
+<ng-template #selectUsers>
+  <div class="content-modal">
+    <div class="chat-name">
+      <label for="inp-text">Chat name</label>
+      <input type="text" id="inp-text" [(ngModel)]="inputNameChat">
+    </div>
+
+    <div class="conteiner-modal">
+      <div class="users-modal">
+        <div *ngFor="let user of users" class="users-list-modal">
+          <div class="user-name-modal">
+            {{user.login}}
+            <div class="input">
+              <label>
+                <input type="checkbox" (change)="addUser($event, user)">
+                <fa-icon [icon]="checkTick" class="checkTick" *ngIf="tickUser"></fa-icon>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button [disabled]="!inputNameChat && !selectedUsers.length" (click)="onAddChat(null)">create</button>
+  </div>
+</ng-template>
+
+<app-modal-window
+  *ngIf="!openModal"
+  [template]="selectUsers"
+  (closeModal)="onOpenCloseModal()"
+  >
+</app-modal-window>

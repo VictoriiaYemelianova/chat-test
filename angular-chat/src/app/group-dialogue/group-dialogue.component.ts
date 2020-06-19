@@ -1,11 +1,11 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, ViewChild, TemplateRef } from '@angular/core';
 // import { MessageUserService } from '../services/message/message-user.service';
 // import { IServerModel, IMessage } from '../data-interface';
 import { UserService } from '../services/user/user.service';
 import { Router } from '@angular/router';
 import { SocketService } from '../services/socket/socket.service';
 import { HttpClient } from '@angular/common/http';
-import { faSignOutAlt, faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt, faArrowLeft, faPlus, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { IUser, IServerModel, IUserRoom, IChatModel } from '../data-interface';
 import { ChatRoomService } from '../services/chat-room/chat-room.service';
 
@@ -16,17 +16,23 @@ import { ChatRoomService } from '../services/chat-room/chat-room.service';
 })
 
 export class GroupDialogueComponent implements OnInit {
-  // public userName: string;
-  // public userId: any;
+  @ViewChild('selectUsers') selectUsers: TemplateRef<any>;
+
   public userOwn: IUser;
   // public usersOnlineList = [];
   public users: Array<IUser>;
+  public roomId: number;
   public chats: Array<IUserRoom>;
   public chatModel: IChatModel;
 
   public logout = faSignOutAlt;
   public arrowBack = faArrowLeft;
   public addChat = faPlus;
+  public checkTick = faCheck;
+
+  public tickUser = false;
+  public selectedUsers = [];
+  public inputNameChat = '';
 
   public sizeMonitor = false;
 
@@ -34,10 +40,9 @@ export class GroupDialogueComponent implements OnInit {
   public innerHeight: any;
 
   public click = false;
-  public roomId: number;
+  public openModal = false;
 
   constructor(
-    // private messageService: MessageUserService,
     private userService: UserService,
     private router: Router,
     private chatService: ChatRoomService,
@@ -80,6 +85,20 @@ export class GroupDialogueComponent implements OnInit {
     this.click = !this.click;
   }
 
+  onOpenCloseModal() {
+    this.openModal = !this.openModal;
+  }
+
+  addUser(event, user) {
+    this.selectedUsers.push(user);
+    this.tickUser = event.target.checked;
+  }
+
+  // changeInput(event) {
+  //   console.log(event.target.checked)
+  //   this.tickUser = event.target.checked;
+  // }
+
   onAddChat(user) {
     this.chatModel = {
       roomName: '',
@@ -90,13 +109,19 @@ export class GroupDialogueComponent implements OnInit {
     if (user) {
       this.chatModel.roomName = user.login;
       this.chatModel.participator.push(user.id);
-      this.chatModel.participator.push(this.userOwn.id);
+    } else {
+      this.chatModel.roomName = this.inputNameChat;
+      this.chatModel.participator = this.selectedUsers.map(el => {
+        return el.id;
+      });
     }
 
+    this.chatModel.participator.push(this.userOwn.id);
     this.chatService.createRoom(this.chatModel).subscribe((res: IServerModel) => {
       if (res.success) {
         this.chatService.chats.subscribe((resp) => {
           this.chats = resp as IUserRoom[];
+          this.onOpenCloseModal();
         });
       }
     });

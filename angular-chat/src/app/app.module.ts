@@ -21,6 +21,7 @@ import { MenuPanelComponent } from './menu-panel/menu-panel.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminMessageComponent } from './admin-message/admin-message.component';
+import { ModalWindowComponent } from './modal-window/modal-window.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
 
@@ -34,7 +35,8 @@ const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
     ChatPageComponent,
     ChangeColorDirective,
     MenuPanelComponent,
-    AdminMessageComponent
+    AdminMessageComponent,
+    ModalWindowComponent
   ],
   imports: [
     BrowserModule,
