@@ -15,10 +15,10 @@ const routes: Routes = [
   { path: 'main-page', component: FirstPageComponent },
   { path: 'login', component: LogUserComponent },
   { path: 'create-user', component: CreateUserComponent },
-  { path: 'admin-page', component: AdminPageComponent },
-  { path: 'settings', component: ChatPageComponent, canActivate:  [AdminGuard], children: [
+  { path: 'admin-page', component: AdminPageComponent, canActivate:  [AdminGuard], children: [
     { path: 'table', component: TableComponent }
-  ] },
+  ]  },
+  { path: 'settings', component: ChatPageComponent },
   { path: 'chat-list', component: GroupDialogueComponent, canActivate: [UserGuard] },
   { path: '', redirectTo: '/main-page', pathMatch: 'full' }
 ];

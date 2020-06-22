@@ -35,7 +35,11 @@ export class LogUserComponent implements OnInit {
     .subscribe((res: IServerModel) => {
       if (res.success) {
         this.socketService.userNameOnline(null);
-        this.router.navigate(['/chat-list']);
+        if (this.userService.currentUserToken.user.role === 'admin') {
+          this.router.navigate(['/admin-page']);
+        } else {
+          this.router.navigate(['/chat-list']);
+        }
       } else {
         this.errorMessage = res.message;
       }
