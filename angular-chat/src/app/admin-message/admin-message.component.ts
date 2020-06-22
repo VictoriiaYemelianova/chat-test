@@ -66,7 +66,7 @@ export class AdminMessageComponent implements OnInit {
         if (res.success) {
           this.socketService.switchRoom(this.chatName);
           this.createdRoom = res.items[0] as IUserRoom;
-          this.messageService.getAllMessage(this.createdRoom.id).subscribe((resp: IServerModel) => {
+          this.messageService.getAllMessage(this.createdRoom.roomId).subscribe((resp: IServerModel) => {
             if (resp.success) {
               this.messages = resp.items as IMessage[];
             }
@@ -102,7 +102,7 @@ export class AdminMessageComponent implements OnInit {
     const newMessageObj = {
       message: this.message,
       idUser: this.userId,
-      roomId: this.createdRoom.id
+      roomId: this.createdRoom.roomId
     };
 
     this.messageService.addNewMessage(newMessageObj);
