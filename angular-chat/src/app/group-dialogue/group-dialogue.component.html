@@ -1,64 +1,61 @@
-<div class="main">
+<div class="main-content">
+  <div class="online-users">
+    <div class="head-dialogue">
+      <span class="group-chat">Online</span>
+    </div>
+    <!-- <app-admin-message></app-admin-message> -->
 
-  <div class="main-content">
-    <div class="online-users">
-      <div class="head-dialogue">
-        <span class="group-chat">Online</span>
-      </div>
-      <!-- <app-admin-message></app-admin-message> -->
-
-      <div class="user-conteiner">
-        <div class="conteiner">
-          <div class="users">
-            <div *ngFor="let user of users" class="online-users-list">
-              <div *ngIf="user.login !== userOwn.login" class="user-name">
-                <span> {{user.login}} </span>
-                <fa-icon [icon]="addChat" class="plus" (click)="onAddChat(user)"></fa-icon>
-              </div>
+    <div class="user-conteiner">
+      <div class="conteiner">
+        <div class="users">
+          <div *ngFor="let user of users" class="online-users-list">
+            <div *ngIf="user.login !== userOwn.login" class="user-name">
+              <span> {{user.login}} </span>
+              <fa-icon [icon]="addChat" class="plus" (click)="onAddChat(user)"></fa-icon>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="dialogue-content">
-      <div class="head-dialogue">
-        <div class="back" (click)="openChat(null)">
-          <fa-icon [icon]="arrowBack" class="arrow-icon" *ngIf="click"></fa-icon>
-        </div>
-        <app-menu-panel *ngIf="sizeMonitor" (onLogout)="logOut()" [height]="innerHeight">
-        </app-menu-panel>
-
-        <span class="group-chat">CHATS LIST</span>
-        <span class="logout" (click)="logOut()">LOGOUT</span>
+  <div class="dialogue-content">
+    <div class="head-dialogue">
+      <div class="back" (click)="closeChat()">
+        <fa-icon [icon]="arrowBack" class="arrow-icon" *ngIf="click"></fa-icon>
       </div>
+      <app-menu-panel *ngIf="sizeMonitor" (onLogout)="logOut()" [height]="innerHeight">
+      </app-menu-panel>
 
-      <div class="chats-content" *ngIf="!click">
-        <div class="chats">
-          <div class="test-div">
-            <div class="content-list" *ngFor="let chat of chats">
-              <div class="chat-name" (click)="openChat(chat.id)">
-                {{chat.roomName}}
-              </div>
+      <span class="group-chat">CHATS LIST</span>
+      <span class="logout" (click)="logOut()">LOGOUT</span>
+    </div>
+
+    <div class="chats-content" *ngIf="!click">
+      <div class="chats">
+        <div class="test-div">
+          <div class="content-list" *ngFor="let chat of chats">
+            <div class="chat-name" (click)="openChat(chat.roomId, chat.roomName)">
+              {{chat.roomName}}
             </div>
           </div>
         </div>
-
-        <div class="create-chat-content">
-          <button (click)="onOpenCloseModal()">
-            add chat
-            <fa-icon [icon]="addChat" class="plus"></fa-icon>
-          </button>
-
-          <div class="user-name">
-            {{userOwn.login}}
-          </div>
-        </div>
       </div>
 
-      <app-chat-page *ngIf="click" roomId={{roomId}}></app-chat-page>
+      <div class="create-chat-content">
+        <button (click)="onOpenCloseModal()">
+          add chat
+          <fa-icon [icon]="addChat" class="plus"></fa-icon>
+        </button>
 
+        <div class="user-name">
+          {{userOwn.login}}
+        </div>
+      </div>
     </div>
+
+    <app-chat-page *ngIf="click" roomId={{roomId}}></app-chat-page>
+
   </div>
 </div>
 
@@ -89,9 +86,5 @@
   </div>
 </ng-template>
 
-<app-modal-window
-  *ngIf="!openModal"
-  [template]="selectUsers"
-  (closeModal)="onOpenCloseModal()"
-  >
+<app-modal-window *ngIf="openModal" [template]="selectUsers" (closeModal)="onOpenCloseModal()">
 </app-modal-window>

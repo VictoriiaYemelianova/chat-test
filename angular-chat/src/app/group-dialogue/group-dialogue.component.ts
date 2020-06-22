@@ -80,9 +80,15 @@ export class GroupDialogueComponent implements OnInit {
     // });
   }
 
-  openChat(id) {
+  openChat(id, roomName) {
     this.roomId = id;
+    this.socketService.switchRoom(roomName);
     this.click = !this.click;
+  }
+
+  closeChat() {
+    this.click = !this.click;
+    this.socketService.switchRoom(null);
   }
 
   onOpenCloseModal() {

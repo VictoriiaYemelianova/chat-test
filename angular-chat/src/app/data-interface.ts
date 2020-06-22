@@ -42,7 +42,7 @@ export interface IUserData {
 }
 
 export interface IUserRoom {
-  id?: number;
+  roomId?: number;
   roomName: string;
   creator?: number;
 }

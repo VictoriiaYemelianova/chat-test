@@ -37,7 +37,6 @@ export class ChatPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.roomId)
     this.innerWidth = window.innerWidth;
     this.innerHeight = window.innerHeight;
     if (this.innerWidth < 600) {
@@ -46,7 +45,7 @@ export class ChatPageComponent implements OnInit {
 
     this.userId = this.userService.currentUserToken.user.id;
 
-    this.messageService.getAllMessage(this.roomId).subscribe((res: IServerModel) => {
+    this.messageService.getAllMessage(+this.roomId).subscribe((res: IServerModel) => {
       if (res.success) {
         this.messages = res.items as IMessage[];
       }
@@ -69,7 +68,7 @@ export class ChatPageComponent implements OnInit {
       message: null,
       idUser: this.userId,
       imgPath: null,
-      roomId: this.roomId
+      roomId: +this.roomId
     };
 
     if (this.message) {
