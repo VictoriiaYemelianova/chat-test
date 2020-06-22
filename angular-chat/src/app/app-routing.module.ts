@@ -8,6 +8,7 @@ import { UserGuard } from './Guard/user.guard';
 import { ChatPageComponent } from './chat-page/chat-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { TableComponent } from './table/table.component';
+import { AdminGuard } from './Guard/admin.guard';
 
 
 const routes: Routes = [
@@ -15,7 +16,7 @@ const routes: Routes = [
   { path: 'login', component: LogUserComponent },
   { path: 'create-user', component: CreateUserComponent },
   { path: 'admin-page', component: AdminPageComponent },
-  { path: 'settings', component: ChatPageComponent, children: [
+  { path: 'settings', component: ChatPageComponent, canActivate:  [AdminGuard], children: [
     { path: 'table', component: TableComponent }
   ] },
   { path: 'chat-list', component: GroupDialogueComponent, canActivate: [UserGuard] },
