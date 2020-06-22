@@ -7,6 +7,9 @@ module.exports = function (router) {
   router.post('/login', async (req, res, next) => {
     try {
       const user = await models.User.findOne({
+        include: {
+          model: models.Role
+        },
         where: {
           email: req.body.email
         }
@@ -22,6 +25,8 @@ module.exports = function (router) {
             config.secret,
             { expiresIn: '24h' }
           );
+
+          user.role = user.Role.role;
 
           let currentUser = {
             user: user,
