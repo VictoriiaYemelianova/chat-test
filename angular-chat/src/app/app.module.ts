@@ -22,6 +22,8 @@ import { MenuPanelComponent } from './menu-panel/menu-panel.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminMessageComponent } from './admin-message/admin-message.component';
 import { ModalWindowComponent } from './modal-window/modal-window.component';
+import { TableComponent } from './table/table.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
 
@@ -36,7 +38,9 @@ const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
     ChangeColorDirective,
     MenuPanelComponent,
     AdminMessageComponent,
-    ModalWindowComponent
+    ModalWindowComponent,
+    TableComponent,
+    AdminPageComponent
   ],
   imports: [
     BrowserModule,

@@ -6,13 +6,18 @@ import { CreateUserComponent } from './create-user/create-user.component';
 import { GroupDialogueComponent } from './group-dialogue/group-dialogue.component';
 import { UserGuard } from './Guard/user.guard';
 import { ChatPageComponent } from './chat-page/chat-page.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
+import { TableComponent } from './table/table.component';
 
 
 const routes: Routes = [
   { path: 'main-page', component: FirstPageComponent },
   { path: 'login', component: LogUserComponent },
   { path: 'create-user', component: CreateUserComponent },
-  { path: 'settings', component: ChatPageComponent },
+  { path: 'admin-page', component: AdminPageComponent },
+  { path: 'settings', component: ChatPageComponent, children: [
+    { path: 'table', component: TableComponent }
+  ] },
   { path: 'chat-list', component: GroupDialogueComponent, canActivate: [UserGuard] },
   { path: '', redirectTo: '/main-page', pathMatch: 'full' }
 ];
