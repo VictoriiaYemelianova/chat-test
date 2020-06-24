@@ -1,0 +1,51 @@
+.table{
+  width: calc(100% - 20px);
+  margin: 10px;
+  border: 1px solid black;
+}
+
+.header-table,
+.table-body {
+  display: flex;
+  width: 100%;
+  height: 35px;
+  border-bottom: 1px solid black;
+
+  .id-role,
+  .email-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid black;
+  }
+
+  .id-role:last-child {
+    border: none;
+  }
+
+  .id-role {
+    width: 40px;
+  }
+
+  .ban {
+    width: 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .email-login {
+    flex: 2;
+  }
+
+  .update-login {
+    display: flex;
+  }
+}
+
+.table-body:last-child {
+  border: none;
+}

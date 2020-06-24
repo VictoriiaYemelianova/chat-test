@@ -164,13 +164,15 @@ module.exports = function (router) {
         return usersRes;
       });
 
+      // res.status(200).send(JSON.stringify(userArr[0]));
       res.items = userArr;
       next();
     } catch(err) {
       res.message = err.message;
       next();
+      // res.status(500).send(err.message)
     }
   })
 
-  router.use('/api', middleware);
+  // router.use('/api', middleware);
 }

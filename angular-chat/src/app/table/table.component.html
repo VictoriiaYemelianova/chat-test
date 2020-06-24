@@ -1,1 +1,21 @@
-<p>table works!</p>
+<div class="table">
+  <div class="header-table">
+    <div class="id-role">id</div>
+    <div class="email-login">email</div>
+    <div class="email-login">login</div>
+    <div class="id-role">role</div>
+    <div class="ban"></div>
+  </div>
+
+  <div class="table-body" *ngFor="let user of users; let i = index">
+    <div class="id-role"> {{i+1}} </div>
+    <div class="email-login"> {{user.email}} </div>
+    <div class="email-login update-login ">
+      {{user.login}}
+    </div>
+    <div class="id-role"> {{user.role}} </div>
+    <div class="ban" (click)="onUserBan(user)">
+      <fa-icon [icon]="ban"></fa-icon>
+    </div>
+  </div>
+</div>
