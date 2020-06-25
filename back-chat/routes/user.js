@@ -173,6 +173,6 @@ module.exports = function (router) {
       // res.status(500).send(err.message)
     }
   })
-
-  // router.use('/api', middleware);
+  
+  router.use('/api', middleware);
 }
