@@ -6,7 +6,6 @@ module.exports = {
       'Messages',
       'path',
       Sequelize.STRING
-
     )
   },
 

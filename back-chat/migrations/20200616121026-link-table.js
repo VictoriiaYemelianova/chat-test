@@ -17,6 +17,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.removeConstraint('Messages', 'custom_fkey_userId')
+    return queryInterface.removeConstraint('Rooms', 'custom_fkey_userId')
   }
 };
