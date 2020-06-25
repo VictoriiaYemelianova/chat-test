@@ -15,6 +15,8 @@ export interface IUser {
   login: string;
   password: string;
   role: string;
+  ban?: boolean;
+  reasonBan?: string;
 }
 
 export interface IMessage {
@@ -30,15 +32,6 @@ export interface IMessage {
 export interface IUserToken {
   token: string;
   user: IUser;
-}
-
-export interface IUserOnline {
-  users: Array<string>;
-}
-
-export interface IUserData {
-  userName: string;
-  room: string;
 }
 
 export interface IUserRoom {
