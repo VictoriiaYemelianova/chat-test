@@ -1,6 +1,4 @@
 import { Component, OnInit, HostBinding, ViewChild, TemplateRef } from '@angular/core';
-// import { MessageUserService } from '../services/message/message-user.service';
-// import { IServerModel, IMessage } from '../data-interface';
 import { UserService } from '../services/user/user.service';
 import { Router } from '@angular/router';
 import { SocketService } from '../services/socket/socket.service';
@@ -19,7 +17,6 @@ export class GroupDialogueComponent implements OnInit {
   @ViewChild('selectUsers') selectUsers: TemplateRef<any>;
 
   public userOwn: IUser;
-  // public usersOnlineList = [];
   public users: Array<IUser>;
   public roomId: number;
   public chats: Array<IUserRooms>;
@@ -72,12 +69,6 @@ export class GroupDialogueComponent implements OnInit {
         });
       }
     });
-
-    // this.socketService.userNameOnline(null);
-
-    // this.socketService.usersOnline.subscribe((res: any) => {
-    //   this.usersOnlineList.push(res);
-    // });
   }
 
   openChat(id, roomName) {

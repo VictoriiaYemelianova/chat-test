@@ -5,21 +5,6 @@ module.exports = function (io) {
   io.on('connection', socket => {
     console.log("connection")
 
-    socket.on('onlineUser', (userData) => {
-      socket.username = userData.userName;
-      socket.room = userData.room;
-      socket.join(socket.room);
-      socket.broadcast.to(socket.room).emit('resUserOnline', userData.userName);
-
-      // for (var a in io.sockets.connected) {
-      //   if(io.sockets.connected[a].user !== undefined ) {
-      //     usersArray.push(io.sockets.connected[a].user);
-      //   }
-      // }
-
-      // io.emit("resUserOnline", usersArray)
-    })
-
     socket.on('switchRoom', (newRoomName) => {
       if (!socket.room) {
         socket.leave('/');
@@ -53,7 +38,7 @@ module.exports = function (io) {
         const user = await models.User.findOne({
           where: { id: req.idUser }
         });
-        
+
         const newMessage = {
           id: newMessageUser.id,
           message: newMessageUser.message,
