@@ -5,7 +5,6 @@ module.exports = function(router) {
     try {
       const chats = await models.Participator.findAll({
         include: {
-          model: models.User,
           model: models.Rooms
         },
         where: {
@@ -14,18 +13,31 @@ module.exports = function(router) {
       });
 
       const respRooms = chats.map(el => {
-        const modelRoom = {
-          roomId: el.idRoom,
-          roomName: el.Room.roomName,
-        };
-
-        return modelRoom;
+        return el.idRoom;
       });
 
       res.items = respRooms;
       next();
     } catch(err) {
       console.log(err)
+      res.message = err.message;
+      next();
+    }
+  })
+
+  router.post('/api/create-room', async (req, res, next) => {
+    try {
+      const modelRoom = {
+        roomName: req.body.roomName,
+        creator: req.body.creatorId,         
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+      createNewRoom = await models.Rooms.create(modelRoom);
+      
+      res.items.push(createNewRoom.id);
+      next();
+    } catch(err) {
       res.message = err.message;
       next();
     }

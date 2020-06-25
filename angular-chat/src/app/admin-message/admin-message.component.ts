@@ -2,13 +2,10 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from '../services/user/user.service';
 
-import * as socketIo from 'socket.io-client';
-
 import { MessageUserService } from '../services/message/message-user.service';
 import { SocketService } from '../services/socket/socket.service';
-import { IServerModel, IMessage, IUserRoom } from '../data-interface';
+import { IServerModel, IMessage, IUserRoom , IChatModel, IUserRooms} from '../data-interface';
 import { ChatRoomService } from '../services/chat-room/chat-room.service';
-import { ObserveOnMessage } from 'rxjs/internal/operators/observeOn';
 
 @Component({
   selector: 'app-admin-message',
@@ -20,10 +17,11 @@ export class AdminMessageComponent implements OnInit {
   public chatOpened: boolean;
   public positionEl: number;
   public message: string;
-  public arrowRight = faPlay;
   public messages: Array<IMessage> = [];
-  public chatName: string;
-  public createdRoom: IUserRoom;
+  public createdRoom: IUserRooms[];
+  public chatModel: IChatModel;
+
+  public arrowRight = faPlay;
 
   constructor(
     private el: ElementRef,
@@ -36,7 +34,6 @@ export class AdminMessageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.chatName = 'admin-chat-room';
     this.userId = this.userService.currentUserToken.user.id;
 
     this.messageService.currentMessage.subscribe((resp: IServerModel) => {
@@ -56,27 +53,34 @@ export class AdminMessageComponent implements OnInit {
     this.chatOpened = !this.chatOpened;
 
     if (this.chatOpened) {
-      const chatModel = {
-        roomName: this.chatName,
-        creatorId: this.userId
-      };
-
+      this.createRoom();
       this.getPosition();
-      this.chatService.createRoom(chatModel).subscribe((res: IServerModel) => {
-        if (res.success) {
-          this.socketService.switchRoom(this.chatName);
-          this.createdRoom = res.items[0] as IUserRoom;
-          this.messageService.getAllMessage(this.createdRoom.roomId).subscribe((resp: IServerModel) => {
-            if (resp.success) {
-              this.messages = resp.items as IMessage[];
-            }
-          });
-        }
-      });
     } else {
       this.socketService.switchRoom('/');
     }
   }
+
+  createRoom() {
+    this.chatModel = {
+      roomName: 'admin-chat-room',
+      creatorId: this.userId
+    };
+
+    this.chatService.createRoom(this.chatModel).subscribe((res: IServerModel) => {
+      if (res.success) {
+        this.socketService.switchRoom(this.chatModel.roomName);
+        this.createdRoom = res.items as IUserRooms[];
+      }
+    });
+  }
+
+  // getMessages() {
+  //   this.messageService.getAllMessage(this.createdRoom.roomId).subscribe((resp: IServerModel) => {
+  //     if (resp.success) {
+  //       this.messages = resp.items as IMessage[];
+  //     }
+  //   });
+  // }
 
   getPosition() {
     const positionNativeEl = this.el.nativeElement.getBoundingClientRect();
@@ -102,7 +106,7 @@ export class AdminMessageComponent implements OnInit {
     const newMessageObj = {
       message: this.message,
       idUser: this.userId,
-      roomId: this.createdRoom.roomId
+      roomId: this.createdRoom[0]
     };
 
     this.messageService.addNewMessage(newMessageObj);

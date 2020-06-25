@@ -1,6 +1,6 @@
 export interface IServerModel {
   success: boolean;
-  items: Array<IUserToken | IMessage | IRoom | IUser | IUserRoom>;
+  items: Array<IUserToken | IMessage | IRoom | IUser | IUserRooms>;
   message: string;
 }
 
@@ -34,6 +34,16 @@ export interface IUserToken {
   user: IUser;
 }
 
+export interface IUserRooms {
+  idRooms?: Array<number>;
+}
+
+export interface IChatModel {
+  roomName: string;
+  creatorId: number;
+  participator?: Array<number>;
+}
+
 export interface IUserRoom {
   roomId?: number;
   roomName: string;
@@ -44,10 +54,4 @@ export interface IRoom {
   id: number;
   idRoom: number;
   participator: number;
-}
-
-export interface IChatModel {
-  roomName: string;
-  creatorId: number;
-  participator?: Array<number>;
 }

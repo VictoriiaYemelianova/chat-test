@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { SocketService } from '../services/socket/socket.service';
 import { HttpClient } from '@angular/common/http';
 import { faSignOutAlt, faArrowLeft, faPlus, faCheck } from '@fortawesome/free-solid-svg-icons';
-import { IUser, IServerModel, IUserRoom, IChatModel } from '../data-interface';
+import { IUser, IServerModel, IUserRoom, IChatModel, IUserRooms } from '../data-interface';
 import { ChatRoomService } from '../services/chat-room/chat-room.service';
 
 @Component({
@@ -22,7 +22,7 @@ export class GroupDialogueComponent implements OnInit {
   // public usersOnlineList = [];
   public users: Array<IUser>;
   public roomId: number;
-  public chats: Array<IUserRoom>;
+  public chats: Array<IUserRooms>;
   public chatModel: IChatModel;
 
   public logout = faSignOutAlt;
@@ -68,7 +68,7 @@ export class GroupDialogueComponent implements OnInit {
     this.chatService.getChats(this.userOwn.id).subscribe((res: IServerModel) => {
       if (res.success) {
         this.chatService.chats.subscribe((resp) => {
-          this.chats = resp as IUserRoom[];
+          this.chats = resp as IUserRooms[];
         });
       }
     });
@@ -113,21 +113,23 @@ export class GroupDialogueComponent implements OnInit {
     };
 
     if (user) {
-      this.chatModel.roomName = user.login;
+      this.chatModel.roomName = 'one-off chat';
       this.chatModel.participator.push(user.id);
     } else {
       this.chatModel.roomName = this.inputNameChat;
       this.chatModel.participator = this.selectedUsers.map(el => {
         return el.id;
       });
+
+      this.onOpenCloseModal();
     }
 
     this.chatModel.participator.push(this.userOwn.id);
+
     this.chatService.createRoom(this.chatModel).subscribe((res: IServerModel) => {
       if (res.success) {
         this.chatService.chats.subscribe((resp) => {
-          this.chats = resp as IUserRoom[];
-          this.onOpenCloseModal();
+          this.chats = resp as IUserRooms[];
         });
       }
     });

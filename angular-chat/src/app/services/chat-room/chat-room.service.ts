@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { apiUrl } from 'src/app/constants';
-import { IUserRoom, IServerModel } from 'src/app/data-interface';
+import { IUserRoom, IServerModel, IUserRooms } from 'src/app/data-interface';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -9,18 +9,18 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ChatRoomService {
-  public chats: BehaviorSubject<Array<IUserRoom>> = new BehaviorSubject<Array<IUserRoom>>([]);
+  public chats: BehaviorSubject<Array<IUserRooms>> = new BehaviorSubject<Array<IUserRooms>>([]); //хранятся id комнат в массиве
 
   constructor(
     private http: HttpClient
   ) { }
 
   createRoom(data: IUserRoom) {
-    return this.http.post(`${apiUrl}/create`, data).pipe(
+    return this.http.post(`${apiUrl}/create-room`, data).pipe(
       map((resp: IServerModel) => {
         if (resp.success) {
           const currentChats = this.chats.value;
-          currentChats.push(resp.items[0] as IUserRoom);
+          currentChats.push(resp.items[0] as IUserRooms);
           this.chats.next(currentChats);
         }
 
@@ -33,8 +33,8 @@ export class ChatRoomService {
     return this.http.get(`${apiUrl}/chats/${idUser}`).pipe(
       map((resp: IServerModel) => {
         if (resp.success) {
-          const currentChats = resp.items as IUserRoom[];
-          this.chats.next(currentChats);
+          const currentChatsArray = resp.items as IUserRooms[];
+          this.chats.next(currentChatsArray);
         }
 
         return resp;
