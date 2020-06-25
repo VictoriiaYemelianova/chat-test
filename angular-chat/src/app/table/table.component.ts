@@ -13,6 +13,8 @@ export class TableComponent implements OnInit {
   public users: Array<IUser>;
   public update = faPencilAlt;
   public ban = faBan;
+  public openModal = false;
+  public selectedUser: IUser;
 
   constructor(
     private userService: UserService
@@ -27,6 +29,11 @@ export class TableComponent implements OnInit {
   }
 
   onUserBan(user) {
-    console.log('click')
+    this.openModal = true;
+    this.selectedUser = user;
+  }
+
+  closeModal() {
+    this.openModal = false;
   }
 }

@@ -19,3 +19,17 @@
     </div>
   </div>
 </div>
+
+<ng-template #userBan>
+  <div class="main">
+    <div class="user-name">
+      <div class="old-name"></div>
+
+      <div class="new-name"></div>
+    </div>
+    <div class="reason-ban"></div>
+    <button (click)="closeModal()">send</button>
+  </div>
+</ng-template>
+
+<app-modal-window *ngIf="openModal" [template]="userBan" ></app-modal-window>
