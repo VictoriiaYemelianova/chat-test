@@ -66,51 +66,6 @@ module.exports = function(router) {
     }
   })
 
-  router.post('/api/create', async (req, res, next) => {
-    try {
-      if (req.body.roomName.includes('admin')) {
-        const operator = await models.User.findOne({
-          include: {
-            model: models.Role,
-            where: {
-              role: 'operator'
-            }
-          }
-        });
-
-        const findRoomResp = await findRoom(req.body.roomName);
-
-        if (!findRoomResp) {
-          const createNewRoom = await createRoom(req.body.roomName, req.body.creatorId);
-          const arrayUsers = [createNewRoom.creator, operator.id];
-          const participatorsArray = await createParticipator(createNewRoom.id, arrayUsers);
-
-          res.items = createNewRoom;
-        } else {
-          const findChatParticipatorsResp = await findChatParticipators(findRoomResp.id);
-          res.items = findChatParticipatorsResp.Room;
-        }
-      } else {
-        const findRoomResp = await findRoom(req.body.roomName);
-
-        if (!findRoomResp) {
-          const createNewRoom = await createRoom(req.body.roomName, req.body.creatorId);
-          const arrayUsers = req.body.participator;
-          const participatorsArray = await createParticipator(createNewRoom.id, arrayUsers);
-          res.items = createNewRoom;
-        } else {
-          const findChatParticipatorsResp = await findChatParticipators(findRoomResp.id);
-          res.items = findChatParticipatorsResp.Room;
-        }
-      };
-
-      next();
-    } catch(err) {
-      res.message = err.message;
-      next();
-    }
-  })
-
   function findRoom(roomName) {
     return models.Rooms.findOne({
       where: {
@@ -125,30 +80,5 @@ module.exports = function(router) {
         idRoom: roomId
       }
     });
-  }
-
-  function createRoom(roomName, creatorId) {
-    const modelRoom = {
-      roomName: roomName,
-      creator: creatorId,         
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-    return models.Rooms.create(modelRoom);
-  }
-
-  async function createParticipator(roomId, array) {
-    const arrayParticipator = await Promise.all(array.map(async (el)  => {
-      const modelParticip = {
-        idRoom: roomId,
-        participator: el,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      };
-
-      const createdParticipator = await models.Participator.create(modelParticip);
-      return createdParticipator;
-    }));
-    return arrayParticipator;
   }
 }

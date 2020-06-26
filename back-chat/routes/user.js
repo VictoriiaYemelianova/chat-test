@@ -67,7 +67,8 @@ module.exports = function (router) {
           password: req.body.password,
           createdAt: new Date(),
           updatedAt: new Date(),
-          role: role.id
+          role: role.id,
+          ban: false
         };
 
         const newUser = await models.User.create(userModel);
@@ -99,31 +100,6 @@ module.exports = function (router) {
       next();
     }
   });
-
-  router.post('/create-role', async (req, res, next) => { //для админа
-    try {
-      const role = await models.Role.findOne({
-        where: {
-          role: req.body.role
-        }
-      });
-
-      if (!role) {
-        const roleModel = {
-          role: req.body.role,
-          createdAt: new Date(),
-          updatedAt: new Date()
-        };
-
-        const newRole = await models.Role.create(roleModel);
-        res.items = newRole;
-        next();
-      }
-    } catch(err) {
-      res.message = err.message;
-      next();
-    }
-  })
 
   router.delete('/user-delete/:id', async (req, res, next) => {
     try {
