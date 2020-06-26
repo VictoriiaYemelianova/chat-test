@@ -35,7 +35,9 @@ export interface IUserToken {
 }
 
 export interface IUserRooms {
-  idRooms?: Array<number>;
+  id: number;
+  roomName: string;
+  creator: number;
 }
 
 export interface IChatModel {

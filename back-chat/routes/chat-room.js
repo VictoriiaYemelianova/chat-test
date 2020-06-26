@@ -13,8 +13,8 @@ module.exports = function(router) {
       });
 
       const respRooms = chats.map(el => {
-        return el.idRoom;
-      });
+        return el.Room;
+      })
 
       res.items = respRooms;
       next();
@@ -35,7 +35,7 @@ module.exports = function(router) {
       }
       createNewRoom = await models.Rooms.create(modelRoom);
       
-      res.items.push(createNewRoom.id);
+      res.items.push(createNewRoom);
       next();
     } catch(err) {
       res.message = err.message;

@@ -8,7 +8,7 @@
     <div class="user-conteiner">
       <div class="conteiner">
         <div class="users">
-          <div *ngFor="let user of users" class="online-users-list">
+          <div *ngFor="let user of users" class="users-list">
             <div *ngIf="user.login !== userOwn.login" class="user-name">
               <span> {{user.login}} </span>
               <fa-icon [icon]="addChat" class="plus" (click)="onAddChat(user)"></fa-icon>
@@ -35,10 +35,11 @@
       <div class="chats">
         <div class="test-div">
           <div class="content-list" *ngFor="let chat of chats">
-            <div class="chat-name" (click)="openChat(chat.roomId, chat.roomName)">
+            <div class="chat-name" (click)="openChat(chat.id, chat.roomName)">
               {{chat.roomName}}
             </div>
           </div>
+
         </div>
       </div>
 
