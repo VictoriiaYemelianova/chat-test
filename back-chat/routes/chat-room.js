@@ -43,6 +43,29 @@ module.exports = function(router) {
     }
   })
 
+  router.post('/api/add-participators', async (req, res, next) => {
+    try {
+      const participatorModel = {
+        idRoom: req.body.idRoom,
+        participator: null,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      };
+
+      const createPatricipator = await Promise.all(req.body.participators.map(el => {
+        participatorModel.participator = el;
+        let createdPatricipator = models.Participator.create(participatorModel);
+        return createdPatricipator;
+      }));
+
+      res.items = createPatricipator;
+      next();
+    } catch(err) {
+      res.message = err.message;
+      next();
+    }
+  })
+
   router.post('/api/create', async (req, res, next) => {
     try {
       if (req.body.roomName.includes('admin')) {

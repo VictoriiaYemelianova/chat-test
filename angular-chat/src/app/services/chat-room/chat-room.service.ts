@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { apiUrl } from 'src/app/constants';
-import { IUserRoom, IServerModel } from 'src/app/data-interface';
+import { IUserRoom, IServerModel, IParticipator } from 'src/app/data-interface';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -27,6 +27,10 @@ export class ChatRoomService {
         return resp;
       })
     );
+  }
+
+  createParticipators(data: IParticipator) {
+    return this.http.post(`${apiUrl}/add-participators`, data);
   }
 
   getChats(idUser) {

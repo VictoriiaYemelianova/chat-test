@@ -9,7 +9,7 @@
       <div class="conteiner">
         <div class="users">
           <div *ngFor="let user of users" class="users-list">
-            <div *ngIf="user.login !== userOwn.login" class="user-name">
+            <div *ngIf="user.login !== currentUser.login" class="user-name">
               <span> {{user.login}} </span>
               <fa-icon [icon]="addChat" class="plus" (click)="onAddChat(user.id)"></fa-icon>
             </div>
@@ -50,7 +50,7 @@
         </button>
 
         <div class="user-name">
-          {{userOwn.login}}
+          {{currentUser.login}}
         </div>
       </div>
     </div>
@@ -69,13 +69,13 @@
 
     <div class="conteiner-modal">
       <div class="users-modal">
-        <div *ngFor="let user of users" class="users-list-modal">
+        <div *ngFor="let user of users, let i = index" class="users-list-modal">
           <div class="user-name-modal">
             {{user.login}}
-            <div class="input">
+            <div class="input" *ngIf="user.login !== currentUser.login">
               <label>
-                <input type="checkbox" (change)="addUser($event, user)">
-                <fa-icon [icon]="checkTick" class="checkTick" *ngIf="tickUser"></fa-icon>
+                <input type="checkbox" (change)="addUser($event, user.id, i)"> <!-- (change)="addUser($event, user)" -->
+                <fa-icon [icon]="checkTick" class="checkTick" *ngIf="tickUser[i]"></fa-icon>
               </label>
             </div>
           </div>
@@ -83,7 +83,7 @@
       </div>
     </div>
 
-    <button [disabled]="!inputNameChat && !selectedUsers.length" (click)="onAddChat(null)">create</button>
+    <button [disabled]="!inputNameChat && !selectedUsersId.length" (click)="onAddChat(null)">create</button>
   </div>
 </ng-template>
 

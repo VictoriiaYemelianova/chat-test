@@ -9,7 +9,6 @@ import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 export class ModalWindowComponent implements OnInit {
   @Input() template: TemplateRef<any>;
   @Output() closeModal: EventEmitter<boolean> = new EventEmitter();
-  @Output() tickUser: EventEmitter<boolean> = new EventEmitter();
 
   public close = faWindowClose;
 

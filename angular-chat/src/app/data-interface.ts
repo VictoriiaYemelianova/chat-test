@@ -1,6 +1,6 @@
 export interface IServerModel {
   success: boolean;
-  items: Array<IUserToken | IMessage | IRoom | IUser | IUserRoom>;
+  items: Array<IUserToken | IMessage | IRoom | IUser | IUserRoom> | IParticipator;
   message: string;
 }
 
@@ -42,7 +42,8 @@ export interface IUserRoom {
 
 export interface IParticipator {
   idRoom: number;
-  participator: Array<number>;
+  participator?: number;
+  participators?: Array<number>;
   chatRole?: string;
 }
 
