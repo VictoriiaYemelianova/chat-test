@@ -11,7 +11,7 @@
           <div *ngFor="let user of users" class="users-list">
             <div *ngIf="user.login !== userOwn.login" class="user-name">
               <span> {{user.login}} </span>
-              <fa-icon [icon]="addChat" class="plus" (click)="onAddChat(user)"></fa-icon>
+              <fa-icon [icon]="addChat" class="plus" (click)="onAddChat(user.id)"></fa-icon>
             </div>
           </div>
         </div>

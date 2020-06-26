@@ -29,13 +29,13 @@ module.exports = function(router) {
     try {
       const modelRoom = {
         roomName: req.body.roomName,
-        creator: req.body.creatorId,         
+        creator: req.body.creator,         
         createdAt: new Date(),
         updatedAt: new Date()
       }
       createNewRoom = await models.Rooms.create(modelRoom);
       
-      res.items.push(createNewRoom);
+      res.items = createNewRoom;
       next();
     } catch(err) {
       res.message = err.message;

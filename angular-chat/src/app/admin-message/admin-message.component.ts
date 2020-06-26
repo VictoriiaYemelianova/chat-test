@@ -4,7 +4,7 @@ import { UserService } from '../services/user/user.service';
 
 import { MessageUserService } from '../services/message/message-user.service';
 import { SocketService } from '../services/socket/socket.service';
-import { IServerModel, IMessage, IUserRoom , IChatModel, IUserRooms} from '../data-interface';
+import { IServerModel, IMessage, IChatModel, IUserRoom} from '../data-interface';
 import { ChatRoomService } from '../services/chat-room/chat-room.service';
 
 @Component({
@@ -18,8 +18,9 @@ export class AdminMessageComponent implements OnInit {
   public positionEl: number;
   public message: string;
   public messages: Array<IMessage> = [];
-  public createdRoom: IUserRooms[];
-  public chatModel: IChatModel;
+
+  public createdRoom: IUserRoom[];
+  public roomModel: IUserRoom;
 
   public arrowRight = faPlay;
 
@@ -61,15 +62,15 @@ export class AdminMessageComponent implements OnInit {
   }
 
   createRoom() {
-    this.chatModel = {
+    this.roomModel = {
       roomName: 'admin-chat-room',
-      creatorId: this.userId
+      creator: this.userId
     };
 
-    this.chatService.createRoom(this.chatModel).subscribe((res: IServerModel) => {
+    this.chatService.createRoom(this.roomModel).subscribe((res: IServerModel) => {
       if (res.success) {
-        this.socketService.switchRoom(this.chatModel.roomName);
-        this.createdRoom = res.items as IUserRooms[];
+        this.socketService.switchRoom(this.roomModel.roomName);
+        this.createdRoom = res.items as IUserRoom[];
       }
     });
   }

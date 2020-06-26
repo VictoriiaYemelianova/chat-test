@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { SocketService } from '../services/socket/socket.service';
 import { HttpClient } from '@angular/common/http';
 import { faSignOutAlt, faArrowLeft, faPlus, faCheck } from '@fortawesome/free-solid-svg-icons';
-import { IUser, IServerModel, IUserRoom, IChatModel, IUserRooms } from '../data-interface';
+import { IUser, IServerModel, IUserRoom, IChatModel, IRoom } from '../data-interface';
 import { ChatRoomService } from '../services/chat-room/chat-room.service';
 
 @Component({
@@ -19,8 +19,8 @@ export class GroupDialogueComponent implements OnInit {
   public userOwn: IUser;
   public users: Array<IUser>;
   public roomId: number;
-  public chats: Array<IUserRooms>;
-  public chatModel: IChatModel;
+  public chats: Array<IUserRoom>;
+  public roomModel: IUserRoom;
 
   public logout = faSignOutAlt;
   public arrowBack = faArrowLeft;
@@ -65,7 +65,7 @@ export class GroupDialogueComponent implements OnInit {
     this.chatService.getChats(this.userOwn.id).subscribe((res: IServerModel) => {
       if (res.success) {
         this.chatService.chats.subscribe((resp) => {
-          this.chats = resp as IUserRooms[];
+          this.chats = resp as IUserRoom[];
         });
       }
     });
@@ -96,31 +96,30 @@ export class GroupDialogueComponent implements OnInit {
   //   this.tickUser = event.target.checked;
   // }
 
-  onAddChat(user) {
-    this.chatModel = {
+  onAddChat(idUser: number) {
+    this.createRoom(idUser);
+
+  }
+
+  createRoom(id: number) {
+    this.roomModel = {
       roomName: '',
-      creatorId: this.userOwn.id,
-      participator: []
+      creator: id
     };
 
-    if (user) {
-      this.chatModel.roomName = 'one-off chat';
-      this.chatModel.participator.push(user.id);
+    if (id) {
+      this.roomModel.roomName = 'privat-chat';
     } else {
-      this.chatModel.roomName = this.inputNameChat;
-      this.chatModel.participator = this.selectedUsers.map(el => {
-        return el.id;
-      });
+      this.roomModel.roomName = this.inputNameChat;
 
       this.onOpenCloseModal();
     }
 
-    this.chatModel.participator.push(this.userOwn.id);
 
-    this.chatService.createRoom(this.chatModel).subscribe((res: IServerModel) => {
+    this.chatService.createRoom(this.roomModel).subscribe((res: IServerModel) => {
       if (res.success) {
         this.chatService.chats.subscribe((resp) => {
-          this.chats = resp as IUserRooms[];
+          this.chats = resp as IUserRoom[];
         });
       }
     });
