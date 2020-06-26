@@ -143,7 +143,8 @@ export class GroupDialogueComponent implements OnInit {
     this.roomMembers.participators.push(this.currentUser.id);
     this.chatService.createParticipators(this.roomMembers).subscribe((res: IServerModel) => {
       if (res.success) {
-        console.log(res.items);
+        this.selectedUsersId = [];
+        this.tickUser = {};
       }
     });
   }
