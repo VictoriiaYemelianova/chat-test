@@ -3,6 +3,7 @@ import { UserService } from '../services/user/user.service';
 import { IUser, IServerModel } from '../data-interface';
 import { faPencilAlt, faBan } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { AdminService } from '../services/admin/admin.service';
 
 @Component({
   selector: 'app-table',
@@ -15,9 +16,13 @@ export class TableComponent implements OnInit {
   public ban = faBan;
   public openModal = false;
   public selectedUser: IUser;
+  public changedUserName = 'swear';
+  public reasonToBan = 'swearing';
+  public userModel: IUser;
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private adminService: AdminService
   ) { }
 
   ngOnInit(): void {
@@ -29,11 +34,28 @@ export class TableComponent implements OnInit {
   }
 
   onUserBan(user) {
-    this.openModal = true;
+    this.closeOpenModal();
     this.selectedUser = user;
+    this.changedUserName = `${this.changedUserName}(${user.login})`;
   }
 
-  closeModal() {
-    this.openModal = false;
+  onBanUser() {
+    this.userModel = {
+      id: this.selectedUser.id,
+      login: this.changedUserName,
+      ban: true,
+      reasonBan: this.reasonToBan
+    };
+
+    this.adminService.userBan(this.userModel).subscribe((res: IServerModel) => {
+      if (res.success) {
+        console.log(res.items);
+      }
+    });
+    this.closeOpenModal();
+  }
+
+  closeOpenModal() {
+    this.openModal = !this.openModal ;
   }
 }

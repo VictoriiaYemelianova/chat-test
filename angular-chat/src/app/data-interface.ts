@@ -11,10 +11,10 @@ export interface IUserToken {
 
 export interface IUser {
   id?: number;
-  email: string;
-  login: string;
-  password: string;
-  role: string;
+  email?: string;
+  login?: string;
+  password?: string;
+  role?: string;
   ban?: boolean;
   reasonBan?: string;
 }

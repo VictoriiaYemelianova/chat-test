@@ -22,14 +22,16 @@
 
 <ng-template #userBan>
   <div class="main">
-    <div class="user-name">
-      <div class="old-name"></div>
-
-      <div class="new-name"></div>
+    <div class="content-ban">
+      <div class="user-name">
+        <input type="text" [(ngModel)]="changedUserName" value="changedUserName">
+      </div>
+      <div class="reason-ban">
+        <input type="text" [(ngModel)]="reasonToBan" value="reasonToBan">
+      </div>
+      <button class="ban-btn" (click)="onBanUser()">ban</button>
     </div>
-    <div class="reason-ban"></div>
-    <button (click)="closeModal()">send</button>
   </div>
 </ng-template>
 
-<app-modal-window *ngIf="openModal" [template]="userBan" ></app-modal-window>
+<app-modal-window *ngIf="openModal" [template]="userBan" (closeModal)="closeOpenModal()"></app-modal-window>
