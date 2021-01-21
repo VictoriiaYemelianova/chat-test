@@ -20,6 +20,6 @@
     "sequelize": "^5.21.6",
     "sequelize-cli": "^5.5.1",
     "sharp": "^0.25.3",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.4.0"
   }
 }
